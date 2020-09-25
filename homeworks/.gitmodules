@@ -4,3 +4,6 @@
 [submodule "hw-2"]
 	path = hw-2
 	url = git@github.com:dsci445-csu/hw-2.git
+[submodule "hw-3"]
+	path = hw-3
+	url = git@github.com:dsci445-csu/hw-3.git
