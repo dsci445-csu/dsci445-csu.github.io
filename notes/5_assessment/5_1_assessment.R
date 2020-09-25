@@ -1,14 +1,4 @@
----
-title: "Chapter 5: Assessing Model Accuracy"
-output:
-  pagedown::html_paged:
-    # change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
-    css: ["../style/my-style-page.css", "default-fonts", "default-page", "default"]
-    self_contained: true
-    number_sections: true
----
-
-```{r echo = FALSE, message = FALSE}
+## ----echo = FALSE, message = FALSE---------------------------------------------------------------------
 library(tidyverse)
 library(scales)
 library(ISLR)
@@ -16,56 +6,11 @@ library(knitr)
 library(dplyr)
 library(tidyr)
 
-opts_chunk$set(fig.height = 3, message = FALSE, warning = FALSE)
-theme_set(theme_bw())
 
 set.seed(445)
-```
-
-One of the key aims of this course is to introduce you to a wide range of statistical learning techniques. Why so many? Why not just the "best one"?
-
-<br/><br/><br/><br/>
-
-Hence, it's important to decide for any given set of data which method produces the best results.
-
-<br/><br/>
-
-![](https://imgs.xkcd.com/comics/machine_learning.png)
-
-https://xkcd.com/1838/
 
 
-# Measuring Quality of Fit
-
-With linear regression we talked about some ways to measure fit of the model
-
-<br/><br/><br/><br/><br/><br/>
-
-In general, we need a way to measure fit and compare *across models*. 
-
-<br/>
-
-One way could be to measure how well its predictions match the observed data. In a regression session, the most commonly used measure is the *mean-squared error (MSE)*
-
-<br/><br/><br/><br/><br/><br/>
-
-We don't really care how well our methods work on the training data. 
-
-<br/>
-
-Instead, we are interested in the accuracy of the predictions that we obtain when we apply our method to previously unseen data. Why?
-
-\newpage
-
-So how do we select a method that minimizes the test MSE?
-
-<br/><br/>
-
-But what if we don't have a test set available?
-
-<br/><br/><br/><br/>
-
-```{r, echo = FALSE}
+## ---- echo = FALSE-------------------------------------------------------------------------------------
 ## generate training data
 n <- 50
 x <- runif(n, 0, 100)
@@ -111,81 +56,15 @@ data.frame(model = "Linear Regression", df = 2, pred = m0.pred, true = test$y) %
   summarise(`Test MSE` = mean(SE)) %>%
   left_join(mse) %>%
   knitr::kable(digits = 4) ## pretty table
-```
 
-\newpage
 
-## Classification Setting
-
-So far, we have talked about assessing model accuracy in the regression setting, but we also need a way to assess the accuracy of classification models.
-
-Suppose we see to estimate $f$ on the basis of training observations where now the response is categorical. The most common approach for quantifying the accuracy is the training error rate.
-
-<br/><br/><br/><br/><br/><br/>
-
-This is called the *training error rate* because it is based on the data that was used to train the classifier. 
-
-<br/>
-
-As with the regression setting, we are mode interested in error rates for data *not* in our training data.
-
-\newpage
-
-## Bias-Variance Trade-off
-
-The U-shape in the test MSE curve compared with flexibility is the result of two competing properties of statistical learning methods. It is possible to show that the expected test MSE, for a given test value $x_0$, can be decomposed
-
-<br/><br/><br/><br/><br/><br/><br/><br/>
-
-This tells us in order to minimize the expected test error, we need to select a statistical learning method that siulatenously achieves *low variance* and *low bias*.
-
-<br/>
-
-Variance -- <br/><br/><br/><br/>
-
-Bias -- <br/><br/><br/><br/>
-
-\newpage
-
-# Cross-Validation
-
-As we have seen, the test error can be easily calculated when there is a test data set available. 
-
-<br/><br/><br/><br/>
-
-In contrast, the training error can be easily calculated.
-
-<br/><br/><br/><br/>
-
-In the absense of a very large designated test set that can be used to estimate the test error rate, what to do?
-
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
-For now we will assume we are in the regression setting (quantitative response), but concepts are the same for classification.
-
-\newpage
-
-## Validation Set
-
-Suppose we would like to estimate the test error rate for a particular statistical learning method on a set of observations. What is the easiest thing we can think to do?
-
-<br/><br/><br/><br/><br/><br/><br/>
-
-Let's do this using the `mpg` data set. Recall we found a non-linear relationship between `displ` and `hwy` mpg.
-
-```{r, echo = FALSE}
+## ---- echo = FALSE-------------------------------------------------------------------------------------
 ggplot(mpg) +
   geom_point(aes(displ, hwy)) +
   geom_smooth(aes(displ, hwy))
-```
 
-<br/><br/>
 
-We fit the model with a squared term $\texttt{displ}^2$, but we might be wondering if we can get better predictive performance by including higher power terms!
-
-\newpage
-
-```{r}
+## ------------------------------------------------------------------------------------------------------
 ## get index of training observations
 # take 60% of observations as training and 40% for validation
 n <- nrow(mpg)
@@ -214,11 +93,9 @@ data.frame(terms = 2, model = "linear", true = true_hwy, pred = pred0) %>%
   group_by(terms, model) %>% # group by model
   summarise(test_mse = mean(se)) %>% ## get test mse
   kable() ## pretty table
-```
 
-\newpage
 
-```{r, echo = FALSE, message = FALSE}
+## ---- echo = FALSE, message = FALSE--------------------------------------------------------------------
 res <- data.frame() ## store results
 
 for(i in 1:10) { # repeat 10 times
@@ -254,25 +131,9 @@ res %>%
   ggplot() +
   geom_line(aes(terms, test_mse, group = iter, colour = iter)) +
   theme(legend.position = "none")
-```
 
-\newpage
 
-## Leave-One-Out Cross Validation
-
-*Leave-one-out cross-validation* (LOOCV) is closely related to the validation set approach, but it attempts to address the method's drawbacks.
-
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
-The LOOCV estimate for the test MSE is
-
-<br/><br/><br/><br/>
-
-LOOCV has a couple major advantages and a few disadvantages.
-
-\newpage
-
-```{r, message = FALSE}
+## ---- message = FALSE----------------------------------------------------------------------------------
 ## perform LOOCV on the mpg dataset
 res <- data.frame() ## store results
 for(i in seq_len(n)) { # repeat for each observation
@@ -305,23 +166,9 @@ res %>%
   group_by(terms, model) %>%
   summarise(LOOCV_test_MSE = mean(mse)) %>%
   kable()
-```
 
-## k-Fold Cross Validation
 
-An alternative to LOOCV is $k$-fold CV.
-
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
-The $k$-fold CV estimate is computed by averaging
-
-<br/><br/><br/><br/><br/><br/>
-
-Why $k$-fold over LOOCV?
-
-\newpage
-
-```{r}
+## ------------------------------------------------------------------------------------------------------
 ## perform k-fold on the mpg dataset
 res <- data.frame() ## store results
 
@@ -365,11 +212,9 @@ res %>%
   group_by(terms, model) %>%
   summarise(kfoldCV_test_MSE = mean(mse)) %>%
   kable()
-```
 
-<br/><br/><br/><br/><br/><br/><br/><br/>
 
-```{r, echo = FALSE, message = FALSE, cache = TRUE}
+## ---- echo = FALSE, message = FALSE, cache = TRUE------------------------------------------------------
 ## repear k-fold on the mpg dataset 10x
 res_cv <- data.frame() ## store results
 k <- 10
@@ -420,10 +265,4 @@ res_cv %>%
   ggplot() +
   geom_line(aes(terms, kfoldCV_test_MSE, group = iter, colour = iter)) +
   theme(legend.position = "none")
-```
 
-\newpage
-
-## Bias-Variance Trade-off for $k$-Fold Cross Validation
-
-## Cross-Validation for Classification Problems
