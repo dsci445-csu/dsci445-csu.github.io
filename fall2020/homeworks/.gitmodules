@@ -1,0 +1,28 @@
+[submodule "hw-1"]
+	path = hw-1
+	url = git@github.com:dsci445-csu/hw-1.git
+	branch = fall2020
+[submodule "hw-2"]
+	path = hw-2
+	url = git@github.com:dsci445-csu/hw-2.git
+	branch = fall2020
+[submodule "hw-3"]
+	path = hw-3
+	url = git@github.com:dsci445-csu/hw-3.git
+	branch = fall2020
+[submodule "hw-4"]
+	path = hw-4
+	url = git@github.com:dsci445-csu/hw-4.git
+	branch = fall2020
+[submodule "hw-5"]
+	path = hw-5
+	url = git@github.com:dsci445-csu/hw-5.git
+	branch = fall2020
+[submodule "hw-6"]
+	path = hw-6
+	url = git@github.com:dsci445-csu/hw-6.git
+	branch = fall2020
+[submodule "hw-7"]
+	path = hw-7
+	url = git@github.com:dsci445-csu/hw-7.git
+	branch = fall2020

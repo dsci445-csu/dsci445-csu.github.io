@@ -1,0 +1,360 @@
+---
+title: "Chapter 6: Linear Model Selection & Regularization"
+output:
+  pagedown::html_paged:
+    # change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
+    css: ["../style/my-style-page.css", "default-fonts", "default-page", "default"]
+    self_contained: true
+    number_sections: true
+---
+
+```{r echo = FALSE, message = FALSE}
+library(tidyverse)
+library(scales)
+library(ISLR)
+library(knitr)
+library(dplyr)
+library(tidyr)
+
+opts_chunk$set(fig.height = 3, message = FALSE, warning = FALSE)
+theme_set(theme_bw())
+
+set.seed(445)
+```
+
+In the regression setting, the standard linear model is commonly used to describe the relationship between a response $Y$ and a set of variables $X_1, \dots, X_p$.
+
+<br/><br/><br/><br/><br/><br/>
+
+The linear model has distinct advantages in terms of inference and is often surprisingly competitive for prediction. How can it be improved?
+
+<br/><br/><br/>
+
+We can yield both better *prediction accuracy* and *model interpretability*:
+
+# Subset Selection
+
+We consider methods for selecting subsets of predictors.
+
+## Best Subset
+
+To perform *best subset selection*, we fit a separate least squares regression for each possible combination of the $p$ predictors.
+
+Algorithm:
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+
+We can perform something similar with logistic regression.
+
+## Stepwise Selection
+
+For computational reasons, best subset selection cannot be performed for very large $p$.
+
+<br/><br/><br/>
+
+Stepwise selection is a computationally efficient procedure that considers a much smaller subset of models.
+
+Forward Stepwise Selection:
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+
+Backward Stepwise Selection:
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+
+Neither forward nor backwards stepwise selection are guaranteed to find the best model containing a subset of the $p$ predictors.
+
+## Choosing the Optimal Model
+
+<br/><br/>
+
+$C_p$ <br/><br/><br/><br/><br/><br/>
+
+AIC & BIC <br/><br/><br/><br/><br/><br/>
+
+Adjusted $R^2$ <br/><br/><br/><br/><br/><br/>
+
+Validation and Cross-Validation
+
+\newpage
+
+# Shrinkage Methods
+
+The subset selection methods involve using least squares to fit a linear model that contains a subset of the predictors. As an alternative, we can fit a model with all $p$ predictors using a technique that constrains (*regularizes*) the estimates.
+
+<br/><br/><br/><br/>
+
+Shrinking the coefficient estimates can significantly reduce their variance!
+
+## Ridge Regression
+
+Recall that the least squares fitting procedure estimates $\beta_1, \dots, \beta_p$ using values that minimize
+
+<br/><br/><br/><br/><br/><br/>
+
+*Ridge Regression* is similar to least squares, except that the coefficients are estimated by minimizing
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+The tuning parameter $\lambda$ serves to control the impact on the regression parameters.
+
+\newpage
+
+The standard least squares coefficient estimates are scale invariant.
+
+<br/><br/><br/>
+
+In contrast, the ridge regression coefficients $\hat{\beta}^R_\lambda$ can change substantially when multiplying a given predictor by a constant.
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+Therefore, it is best to apply ridge regression *after standardizing the predictors* so that they are on the same scale:
+
+\newpage
+
+Why does ridge regression work?
+
+\newpage
+
+## The Lasso
+
+Ridge regression does have one obvious disadvantage.
+
+<br/><br/><br/><br/><br/><br/>
+
+This may not be a problem for prediction accuracy, but it could be a challenge for model interpretation when $p$ is very large.
+
+<br/>
+
+The *lasso* is an alternative that overcomes this disadvantage. The lasso coefficients $\hat{\beta}_\lambda^L$ minimize
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+As with ridge regression, the lasso shrinks the coefficient estimates towards zero.
+
+<br/><br/><br/><br/><br/><br/>
+
+As a result, lasso models are generally easier to interpret.
+
+\newpage
+
+Why does the lasso result in estimates that are exactly equal to zero but ridge regression does not? One can show that the lasso and ridge regression coefficient estimates solve the following problems
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+In other words, when we perform the lasso we are trying to find the set of coefficient estimates that lead to the smalled RSS, subject to the contraint that there is a budget $s$ for how large $\sum_{j = 1}^p |\beta_j|$ can be.
+
+\newpage
+
+## Tuning
+
+We still need a mechanism by which we can determine which of the models under consideration is "best". 
+
+<br/>
+
+For both the lasso and ridge regression, we need to select $\lambda$ (or the budget $s$).
+
+How?
+
+# Dimension Reduction Methods
+
+So far we have controlled variance in two ways:
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+We now explore a class of approaches that 
+
+<br/><br/><br/><br/><br/><br/>
+
+We refer to these techniques as *dimension reduction* methods.
+
+\newpage
+
+The term *dimension reduction* comes from the fact that this approach reduces the problem of estimating $p + 1$ coefficients to the problem of estimating $M + 1$ coefficients where $M < p$.
+
+<br/><br/><br/><br/><br/><br/>
+
+Dimension reduction serves to constrain $\beta_j$, since now they must take a particular form.
+
+<br/><br/><br/><br/><br/><br/>
+
+All dimension reduction methods work in two steps.
+
+\newpage
+
+## Principle Component Regression
+
+*Principal Components Analysis (PCA)* is a popular approach for deriving a low-dimensional set of features from a large set of variables.
+
+<br/>
+
+The *first principal component* directions of the data is that along which the obervations vary the most.
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+We can construct up to $p$ principal components, where the $2$nd principal component is a linear combination of the variables that are uncorrelated to the first principal component and has the largest variance subject to this constraint.
+
+<br/><br/>
+
+```{r, echo = FALSE, fig.show = "hold", out.width="50%", fig.height = 4.5}
+pca.fit <- prcomp(Auto[, c("weight", "horsepower")]) ## pca
+lm.fit <- lm(horsepower ~ weight, data = Auto) ## for plot
+
+ggplot() +
+  geom_point(aes(weight, horsepower), data = Auto) +
+  geom_abline(aes(intercept = coef(lm.fit)[1], slope = coef(lm.fit)[2]), colour = "blue") +
+  theme(text = element_text(size = 20))
+  
+
+## PC Plot
+data.frame(pca.fit$x) %>%
+  ggplot() +
+  geom_point(aes(PC1, -PC2)) +
+  geom_hline(aes(yintercept = 0), colour = "blue") +
+  ylab("PC2") +
+  theme(text = element_text(size = 20))
+```
+
+\newpage
+
+The Principal Components Regression approach (PCR) involves
+
+<br/>
+
+1. <br/><br/>
+
+2. <br/><br/>
+
+<br/>
+
+Key idea:
+
+<br/><br/>
+
+In other words, we assume that the directions in which $X_1, \dots, X_p$ show the most variation are the directions that are associated with $Y$.
+
+<br/><br/><br/><br/><br/><br/>
+
+How to choose $M$, the number of components?
+
+<br/><br/><br/><br/><br/><br/>
+
+Note: PCR is not feature selection!
+
+\newpage
+
+## Partial Least Squares
+
+The PCR approach involved identifying linear combinations that best represent the predictors $X_1, \dots, X_p$.
+
+<br/>
+
+Consequently, PCR suffers from a drawback
+
+<br/>
+
+Alternatively, *partial least squares (PLS)* is a supervised version.
+
+<br/><br/><br/><br/><br/>
+
+Roughly speaking, the PLS approach attempts to find directions that help explain both the reponse and the predictors.
+
+
+The first PLS direction is computed,
+
+<br/><br/><br/><br/><br/><br/>
+
+To identify the second PLS direction,
+
+<br/><br/><br/><br/><br/><br/>
+
+As with PCR, the number of partial least squares directions is chosen as a tuning parameter.
+
+# Considerations in High Dimensions
+
+Most traditional statistical techniques for regression and classification are intendend for the low-dimensional setting.
+
+<br/><br/><br/><br/><br/><br/>
+
+In the past 25 years, new technologies have changed the way that data are collected in many fields. It is not commonplace to collect an almost unlimited number of feature measurements.
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+Data sets containing more features than observations are often referred to as *high-dimensional*.
+
+\newpage
+
+What can go wrong in high dimensions?
+
+<br/><br/><br/><br/>
+
+```{r, echo = FALSE, fig.show='hold', out.width="50%", fig.height=4}
+plot_fit <- function(n) {
+  x <- rnorm(n)
+  y <- 1 + 2*x + rnorm(n, 0, .5)
+  
+  lm_fit <- lm(y ~ x)
+  lm_coefs <- coef(lm_fit)
+  
+  ggplot() +
+    geom_point(aes(x, y), colour = "red", size = 2) +
+    geom_abline(aes(intercept = lm_coefs[1], slope = lm_coefs[2]), colour = "blue") +
+    theme(text = element_text(size = 30))
+}
+
+plot_fit(20)
+plot_fit(2)
+
+```
+
+<br/><br/><br/><br/>
+
+```{r, echo = FALSE, fig.show='hold', fig.height=4}
+add_random_predictors <- function(p) {
+  n <- 20
+  
+  x <- matrix(rnorm(n * p), nrow = n, ncol = p)
+  y <- rnorm(n)
+  
+  lm_fit <- lm(y ~ x)
+  
+  test_x <- matrix(rnorm(n * p), nrow = n, ncol = p)
+  test_y <- rnorm(n)
+  
+  pred_y <- predict(lm_fit, newdata = data.frame(test_x))
+
+  return(data.frame(p = p, 
+                    R_squared = summary(lm_fit)$r.squared, 
+                    test_MSE = mean((test_y - pred_y)^2),
+                    train_MSE = mean(lm_fit$residuals^2)))
+  
+}
+
+res <- data.frame()
+for(p in seq(1, 20)) {
+  res <- rbind(res, add_random_predictors(p))
+}
+
+res %>%
+  gather(metric, value, -p) %>%
+  ggplot() +
+  geom_line(aes(p, value)) +
+  facet_wrap(.~ metric, nrow = 1, scales = "free_y")
+
+```
+
+\newpage
+
+Many of the methds that we've seen for fitting *less flexible* models work well in the high-dimension setting.
+
+<br/>
+
+1. <br/><br/><br/>
+
+2. <br/><br/><br/>
+
+3. <br/><br/><br/>
+
+<br/><br/><br/>
+
+When we perform the lasso, ridge regression, or other regression procedures in the high-dimensional setting, we must be careful how we report our results.
+
