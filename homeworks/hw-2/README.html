@@ -1,77 +1,249 @@
-# hw-2
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-Homework 2 in DSCI445: Statistical Machine Learning @ CSU
+<title>hw-2</title>
 
-## Assignment
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
 
-### Part 1 - Regression
 
-In this exercise you will create some simulated data and will fit simple linear regression models to it. Make sure to use `set.seed(445)` prior to starting part (a) to ensure reproducible results.
 
-(a) Using the `rnorm()` function, create a vector $x$ containing $100$ observations drawn from a $N(0, 1)$ distribution. This represents the feature, $X$.
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 
-(b) Using the `rnorm()` function, create a vector `eps` containing $100$ observations drawn from a $N(0, 0.25)$ distribution, i.e. a Normal distribution with mean zero and variance $0.25$.
 
-(c) Using `x` and `eps`, generate a vector `y` according to the model
-    $$
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>hw-2</h1>
+
+<p>Homework 2 in DSCI445: Statistical Machine Learning @ CSU</p>
+
+<h2>Assignment</h2>
+
+<h3>Part 1 - Regression</h3>
+
+<p>In this exercise you will create some simulated data and will fit simple linear regression models to it. Make sure to use <code>set.seed(445)</code> prior to starting part (a) to ensure reproducible results.</p>
+
+<p>(a) Using the <code>rnorm()</code> function, create a vector \(x\) containing \(100\) observations drawn from a \(N(0, 1)\) distribution. This represents the feature, \(X\).</p>
+
+<p>(b) Using the <code>rnorm()</code> function, create a vector <code>eps</code> containing \(100\) observations drawn from a \(N(0, 0.25)\) distribution, i.e. a Normal distribution with mean zero and variance \(0.25\).</p>
+
+<p>&copy; Using <code>x</code> and <code>eps</code>, generate a vector <code>y</code> according to the model
+    \[
     Y = -1 + 0.5 X + \epsilon.
-    $$
-    What is the length of the vector `y`? What are the values of $\beta_0$ and $\beta_1$ in this linear model?
-    
-(d) Create a scatterplot displaying the relationship between `x` and `y`. Comment on what you observe.
+    \]
+    What is the length of the vector <code>y</code>? What are the values of \(\beta_0\) and \(\beta_1\) in this linear model?</p>
 
-(e) Fit a least squares linear model to predict `y` from `x`. Comment on the model obtained. How do $\hat{\beta}_0$ and $\hat{\beta}_1$ compare to $\beta_0$ and $\beta_1$?
+<p>(d) Create a scatterplot displaying the relationship between <code>x</code> and <code>y</code>. Comment on what you observe.</p>
 
-(f) Display the least squares line on the scatterplot obtained in (d) in blue. Draw the population regression line on the plot in red. (See `geom_abline()` for how to add a line based on intercept and slope.)
+<p>(e) Fit a least squares linear model to predict <code>y</code> from <code>x</code>. Comment on the model obtained. How do \(\hat{\beta}_0\) and \(\hat{\beta}_1\) compare to \(\beta_0\) and \(\beta_1\)?</p>
 
-(g) Now fit a polynomial regression model that predicts `y` using `x` and $\texttt{x}^2$. Is there evidence that the quadratic term improves the model fit? Explain your answer.
+<p>(f) Display the least squares line on the scatterplot obtained in (d) in blue. Draw the population regression line on the plot in red. (See <code>geom_abline()</code> for how to add a line based on intercept and slope.)</p>
 
-(h) Repeat (a)-(f) after modifying the data generation process in such a way that there is *less* noise in the data. The model should remain the same. You can accomplish this by changing the variance of the normal distribution used to generate the error term $\epsilon$ in (b). Describe your results.
+<p>(g) Now fit a polynomial regression model that predicts <code>y</code> using <code>x</code> and \(\texttt{x}^2\). Is there evidence that the quadratic term improves the model fit? Explain your answer.</p>
 
-(i) Repeat (a)-(f) after modifying the data generation process in such a way that there is *more* noise in the data. The model should remain the same. You can accomplish this by changing the variance of the normal distribution used to generate the error term $\epsilon$ in (b). Describe your results.
+<p>(h) Repeat (a)-(f) after modifying the data generation process in such a way that there is <em>less</em> noise in the data. The model should remain the same. You can accomplish this by changing the variance of the normal distribution used to generate the error term \(\epsilon\) in (b). Describe your results.</p>
 
-(j) What are the confidence intervals for $\beta_0$ and $\beta_1$ based on the original data set, the noisier data set, and the less noisy data sets? Comment on your results.
-    
-### Part 2 - Classification
+<p>(i) Repeat (a)-(f) after modifying the data generation process in such a way that there is <em>more</em> noise in the data. The model should remain the same. You can accomplish this by changing the variance of the normal distribution used to generate the error term \(\epsilon\) in (b). Describe your results.</p>
 
-1. When the number of features $p$ is large, there tends to be a deterioration in the perforance of KNN and other *local* approaches that perform prediction using only observations that are *near* the test observation for which a prediction must be made. This phenomenon is known as the *curse of dimensionality*, and it ties into the fact that non-parametric approaches often perform poorly when $p$ is large. We will now investigae this curse.
+<p>(j) What are the confidence intervals for \(\beta_0\) and \(\beta_1\) based on the original data set, the noisier data set, and the less noisy data sets? Comment on your results.</p>
 
-    (a) Suppose that we have a set of observations, each with measurements on $p = 1$ feature, $X$. We assume that $X$ is uniformly (evenly) distributed on $[0,1]$. Associated with each observation is a response value. Suppose that we wish to predict a test observation's response using only observations that are within $10\%$ of the range of $X$ closest to that test observation. For instance, in order to predict the response for a test observation with $X = 0.6$ we will use observations in the range $[0.55, 0.66]$. On average, what fraction of the available observations will we use to make this prediction?
-    
-    (b) Now suppose that we have a set of observations, each with measurements on $p = 2$ features, $X_1$ and $X_2$. We assume $(X_1, X_2)$ are uniformly distributed on $[0,1]\times[0,1]$. we wish to predict a test observation's response using only observations that are within $10\%$ of the range of $X_1$ *and* within $10\%$ of the range of $X_2$ closest to that test observation. For instance, in order to predict the response for a test observation with $X_1 = 0.6$ and $X_2 = 0.35$ we will use observations in the range $[0.55, 0.66]$ for $X_1$ and in the range $[0.3, 0.4]$ for $X_2$. On average, what fraction of the available observations will we use to make this prediction?
-    
-    (c) Now suppose that we have a set of observations, each with measurements on $p = 100$ features. Again, the observations are uniformly distributed on each feature, and again each feature ranges from $0$ to $1$. we wish to predict a test observation's response using only observations that are within $10\%$ of each feature's range that is closest to that test observation. What fraction of the available observations will we use to make this prediction?
-    
-    (d) Using your answers to (a)--(c), argue that a drawback of KNN when $p$ is large is that there are very few training observations *near* any given test observation.
-    
-    (e) Now suppose that we wish to make a prediction for a test observation by creating a $p$-dimensional hypercube centered around the test observation that contains, on average, $10\%$ of the training observations. For $p = 1, 2,$ and $100$, what is the length of each side of the hypercube? Comment on your answer.
-    
-        [Hint: A hypercube is a generalization of a cube to an arbitrary number of dimensions. When $p = 1$, a hypercube is simple a line segment. When $p = 2$ it is a square, and when $p = 100$ it is a $100$-dimensional cube.]
-        
-2. Suppose we collect data for a group of students in a statistics class with variables $X_1 =$ hours studied, $X_2 =$ undergrad GPA, and $Y =$ receive an A. We fit a logistic regression and produce estimated coefficients, $\hat{\beta}_0 = -6, \hat{\beta}_1 = 0.05, \hat{beta}_2 = 1$.
+<h3>Part 2 - Classification</h3>
 
-    (a) Estimate the probability that a student who studies for $40$h and has an undergrad GPA of $3.5$ gets an A in the class.
-    
-    (b) How many hours would the student in part (a) need to study to have a $50\%$ chance of getting an A in the class?
-    
-3. This question should be answered using the `Weekly` data set, which is part of the `ISLR` package. This data contains weekly percentage returns for the S&P 500 stock index between 1990 and 2010.
+<ol>
+<li><p>When the number of features \(p\) is large, there tends to be a deterioration in the perforance of KNN and other <em>local</em> approaches that perform prediction using only observations that are <em>near</em> the test observation for which a prediction must be made. This phenomenon is known as the <em>curse of dimensionality</em>, and it ties into the fact that non-parametric approaches often perform poorly when \(p\) is large. We will now investigae this curse.</p>
 
-    (a) Produce some numerical and graphical summaries of the `Weekly` data. Do there appear to be any patterns?
-    
-    (b) Use the full data set to perform a logistic regression with `Direction` as the response and the five lag variables plus `Volume` as predictors. Use the summary function to print the results. Do any of the predictors appear to be statistically significant? If so, which ones?
-    
-    (c) Compute the confusion matrix and overall fraction of correct predictions. Explain what the confusion matrix is telling you about the types of mistakes made by logistic regression.
-    
-    (d) Now fit the logistic regression model using a traning data period from 1990 to 2009 with `Lag2` as the only predictor. Compute the confusion matrix and the overall fraction of correct predictions for the held out data (that is the data from 2010).
-    
-    (e) Repeat (d) using LDA.
-    
-    (f) Repeat (d) using KNN with K = 1.
-    
-    (h) Which of these methods appears to provide the best results on this data?
-    
-    (i) Experiment with different combinations of predictors, including possible transformations and interactions, for each of the methods. Report the variables, method, and associated confusion matrix that appears to provide the best results on the held out data. Note that you can experiment with values for $K$ in the KNN classifier.
-    
-4. Using the `Boston` data set, fit classification models in order to predict whether a given suburb has a crime rate above or below the median. Explore logistic regression, LDA, and KNN models using various subsets of the predictors. Describe your findings.
+<p>(a) Suppose that we have a set of observations, each with measurements on \(p = 1\) feature, \(X\). We assume that \(X\) is uniformly (evenly) distributed on \([0,1]\). Associated with each observation is a response value. Suppose that we wish to predict a test observation&#39;s response using only observations that are within \(10\%\) of the range of \(X\) closest to that test observation. For instance, in order to predict the response for a test observation with \(X = 0.6\) we will use observations in the range \([0.55, 0.66]\). On average, what fraction of the available observations will we use to make this prediction?</p>
 
-Turn in in a pdf of your homework to canvas using the provided Rmd file as a template. Your Rmd file on rstudio.cloud will also be used in grading, so be sure they are identical.
+<p>(b) Now suppose that we have a set of observations, each with measurements on \(p = 2\) features, \(X_1\) and \(X_2\). We assume \((X_1, X_2)\) are uniformly distributed on \([0,1]\times[0,1]\). we wish to predict a test observation&#39;s response using only observations that are within \(10\%\) of the range of \(X_1\) <em>and</em> within \(10\%\) of the range of \(X_2\) closest to that test observation. For instance, in order to predict the response for a test observation with \(X_1 = 0.6\) and \(X_2 = 0.35\) we will use observations in the range \([0.55, 0.66]\) for \(X_1\) and in the range \([0.3, 0.4]\) for \(X_2\). On average, what fraction of the available observations will we use to make this prediction?</p>
+
+<p>&copy; Now suppose that we have a set of observations, each with measurements on \(p = 100\) features. Again, the observations are uniformly distributed on each feature, and again each feature ranges from \(0\) to \(1\). we wish to predict a test observation&#39;s response using only observations that are within \(10\%\) of each feature&#39;s range that is closest to that test observation. What fraction of the available observations will we use to make this prediction?</p>
+
+<p>(d) Using your answers to (a)&ndash;&copy;, argue that a drawback of KNN when \(p\) is large is that there are very few training observations <em>near</em> any given test observation.</p>
+
+<p>(e) Now suppose that we wish to make a prediction for a test observation by creating a \(p\)-dimensional hypercube centered around the test observation that contains, on average, \(10\%\) of the training observations. For \(p = 1, 2,\) and \(100\), what is the length of each side of the hypercube? Comment on your answer.</p>
+
+<pre><code>[Hint: A hypercube is a generalization of a cube to an arbitrary number of dimensions. When $p = 1$, a hypercube is simple a line segment. When $p = 2$ it is a square, and when $p = 100$ it is a $100$-dimensional cube.]
+</code></pre></li>
+<li><p>Suppose we collect data for a group of students in a statistics class with variables \(X_1 =\) hours studied, \(X_2 =\) undergrad GPA, and \(Y =\) receive an A. We fit a logistic regression and produce estimated coefficients, \(\hat{\beta}_0 = -6, \hat{\beta}_1 = 0.05, \hat{beta}_2 = 1\).</p>
+
+<p>(a) Estimate the probability that a student who studies for $40$h and has an undergrad GPA of \(3.5\) gets an A in the class.</p>
+
+<p>(b) How many hours would the student in part (a) need to study to have a \(50\%\) chance of getting an A in the class?</p></li>
+<li><p>This question should be answered using the <code>Weekly</code> data set, which is part of the <code>ISLR</code> package. This data contains weekly percentage returns for the S&amp;P 500 stock index between 1990 and 2010.</p>
+
+<p>(a) Produce some numerical and graphical summaries of the <code>Weekly</code> data. Do there appear to be any patterns?</p>
+
+<p>(b) Use the full data set to perform a logistic regression with <code>Direction</code> as the response and the five lag variables plus <code>Volume</code> as predictors. Use the summary function to print the results. Do any of the predictors appear to be statistically significant? If so, which ones?</p>
+
+<p>&copy; Compute the confusion matrix and overall fraction of correct predictions. Explain what the confusion matrix is telling you about the types of mistakes made by logistic regression.</p>
+
+<p>(d) Now fit the logistic regression model using a traning data period from 1990 to 2009 with <code>Lag2</code> as the only predictor. Compute the confusion matrix and the overall fraction of correct predictions for the held out data (that is the data from 2010).</p>
+
+<p>(e) Repeat (d) using LDA.</p>
+
+<p>(f) Repeat (d) using KNN with K = 1.</p>
+
+<p>(h) Which of these methods appears to provide the best results on this data?</p>
+
+<p>(i) Experiment with different combinations of predictors, including possible transformations and interactions, for each of the methods. Report the variables, method, and associated confusion matrix that appears to provide the best results on the held out data. Note that you can experiment with values for \(K\) in the KNN classifier.</p></li>
+<li><p>Using the <code>Boston</code> data set, fit classification models in order to predict whether a given suburb has a crime rate above or below the median. Explore logistic regression, LDA, and KNN models using various subsets of the predictors. Describe your findings.</p></li>
+</ol>
+
+<p>Turn in in a pdf of your homework to canvas using the provided Rmd file as a template. Your Rmd file on rstudio.cloud will also be used in grading, so be sure they are identical.</p>
+
+</body>
+
+</html>
