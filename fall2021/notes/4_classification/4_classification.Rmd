@@ -1,0 +1,596 @@
+---
+title: "Chapter 4: Classification"
+output:
+  pagedown::html_paged:
+    # change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
+    css: ["../style/my-style-page.css", "default-fonts", "default-page", "default"]
+    self_contained: true
+    number_sections: true
+---
+
+```{r echo = FALSE, message = FALSE}
+library(tidyverse)
+library(scales)
+library(ISLR)
+library(knitr)
+library(dplyr)
+library(tidyr)
+
+opts_chunk$set(fig.height = 3, message = FALSE, warning = FALSE)
+theme_set(theme_bw())
+
+set.seed(445)
+```
+
+The linear model in Ch. 3 assumes the response variable $Y$ is quantitiative. But in many situations, the response is categorical.
+
+<br/><br/><br/><br/>
+
+In this chapter we will look at approaches for predicting categorical responses, a process known as *classification*.
+
+Classification problems occur often, perhaps even more so than regression problems. Some examples include
+
+1. <br/><br/><br/><br/>
+
+2. <br/><br/><br/><br/>
+
+3. <br/><br/><br/><br/>
+
+As with regression, in the classification setting we have a set of training observations $(x_1, y_1), \dots, (x_n, y_n)$ that we can use to build a classifier. We want our classifier to perform well on the training data and also on data not used to fit the model (**test data**).
+
+<br/>
+
+We will use the `Default` data set in the `ISLR` package for illustrative purposes. We are interested in predicting whether a person will default on their credit card payment on the basis of annual income and credit card balance.
+
+\newpage
+
+```{r, echo = FALSE}
+head(Default)
+
+ggplot(Default) +
+  geom_point(aes(balance, income, colour = default, shape = default), alpha = 0.5)
+
+Default %>%
+  select (-student) %>%
+  gather(feature, value, -default) %>%
+  ggplot() +
+  geom_boxplot(aes(default, value, fill = default)) +
+  facet_wrap(.~feature, scales = "free_y") +
+  theme(legend.position = "hide")
+
+```
+
+# Why not Linear Regression?
+
+I have said that linear regression is not appropriate in the case of a categorical response. Why not?
+
+Let's try it anyways. We could consider encoding the values of `default` in a quantitative repsonse variable $Y$
+
+$$
+Y = \begin{cases}
+1 & \text{if } \texttt{default} \\
+0 & \text{otherwise}
+\end{cases}
+$$
+Using this coding, we could then fit a linear regression model to predict $Y$ on the basis of `income` and `balance`. This implies an ordering on the outcome, not defaulting comes first before defaulting and insists the difference between these two outcomes is $1$ unit. In practice, there is no reason for this to be true.
+
+<br/>
+<br/>
+<br/>
+
+Using the dummy encoding, we can get a rough estimate of $P(\texttt{default} | X)$, but it is not guaranteed to be scaled correctly.
+
+# Logistic Regression
+
+Let's consider again the `default` variable which takes values `Yes` or `No`. Rather than modeling the response directly, logistic regression models the *probability* that $Y$ belongs to a particular category.
+
+<br/><br/><br/><br/>
+
+For any given value of `balance`, a prediction can be made for `default`.
+
+<br/><br/><br/><br/>
+
+## The Model
+
+How should we model the relationship between $p(X) = P(Y = 1 | X)$ and $X$? We could use a linear regression model to represent those probabilities
+
+<br/><br/><br/><br/>
+
+```{r, echo = FALSE, fig.height = 2.5}
+Default2 <- Default
+Default2$default_num <- as.numeric(Default2$default) - 1
+
+m0 <- lm(default_num ~ balance, data = Default2)
+
+ggplot(Default2) +
+  geom_point(aes(balance, default_num), alpha = 0.5) +
+  geom_abline(aes(intercept = m0$coefficients[1], slope = m0$coefficients[2]), colour = "blue") +
+  xlab("Balance") +
+  ylab("Probability of Default")
+```
+
+\newpage
+
+To avoid this, we must model $p(X)$ using a function that gives outputs between $0$ and $1$ for all values of $X$. Many functions meet this description, but in *logistic* regression, we use the *logistic* function,
+
+<br/><br/><br/><br/>
+
+```{r, echo = FALSE}
+m1 <- glm(default ~ balance, family = "binomial", data = Default)
+
+ggplot(Default2) +
+  geom_point(aes(balance, default_num), alpha = 0.5) +
+  geom_line(aes(balance, m1$fitted.values), colour = "blue") +
+  xlab("Balance") +
+  ylab("Probability of Default")
+```
+
+<br/><br/>
+
+After a bit of manipulation,
+
+\newpage
+
+By taking the logarithm of both sides we see,
+
+<br/><br/><br/><br/><br/><br/>
+
+Recall from Ch. 3 that $\beta_1$ gives the "average change in $Y$ associated with a one unit increase in $X$." In contrast, in a logistic model,
+
+<br/><br/><br/><br/>
+
+However, because the relationship between $p(X)$ and $X$ is not linear, $\beta_1$ does **not** correspond to the change in $p(X)$ associated with a one unit increase in $X$. The amount that $p(X)$ changes due to a 1 unit increase in $X$ depends on the current value of $X$.
+
+\newpage
+
+## Estimating the Coefficients
+
+The coefficients $\beta_0$ and $\beta_1$ are unknown and must be estimated based on the available training data. To find estimates, we will use the method of *maximum likelihood*.
+
+The basic intuition is that we seek estimates for $\beta_0$ and $\beta_1$ such that the predicted probability $\hat{p}(x_i)$ of default for each individual corresponds as closely as possible to the individual's observed default status.
+
+<br/><br/><br/><br/>
+
+```{r}
+m1 <- glm(default ~ balance, family = "binomial", data = Default)
+
+summary(m1)
+```
+
+## Predictions
+
+Once the coefficients have been estimated, it is a simple matter to compute the probability of `default` for any given credit card balance. For example, we predict that the default probability for an individual with `balance` of $1,000 is
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+In contrast, the predicted probability of default for an individual with a balance of $2,000 is
+
+\newpage
+
+## Multiple Logistic Regression
+
+We now consider the problem of predicting a binary response using multiple predictors. By analogy with the extension from simple to multiple linear regression, 
+
+<br/><br/><br/><br/><br/><br/>
+
+Just as before, we can use maximum likelihood to estimate $\beta_0, \beta_1, \dots, \beta_p$.
+
+```{r}
+m2 <- glm(default ~ ., family = "binomial", data = Default)
+summary(m2)
+```
+
+
+\newpage
+
+By substituting estimates for the regression coefficients from the model summary, we can make predictions. For example, a student with a credit card balance of $1,500 and an income of $40,000 has an estimated probability of default of 
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+A non-student with the same balance and income has an estimated probability of default of
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+## Logistic Regression for $> 2$ Classes
+
+We sometimes which to classify a response variable that has more than two classes. There are multi-class extensions to logistic regression ("multinomial regression"), but there are far more popular methods of performing this. 
+
+# LDA
+
+Logistic regression involves direction modeling $P(Y = k | X = x)$ using the logistic function for the case of two response classes. We now consider a less direct approach.
+
+**Idea:**
+
+<br/><br/><br/><br/><br/><br/>
+
+Why do we need another method when we have logistic regression?
+
+<br/><br/>
+
+1. <br/><br/><br/><br/><br/>
+
+1. <br/><br/><br/><br/><br/>
+
+1. <br/><br/><br/><br/><br/>
+
+\newpage
+
+## Bayes' Theorem for Classification
+
+Suppose we wish to classify an observation into one of $K$ classes, where $K \ge 2$. 
+
+<br/>
+
+$\pi_k$
+
+<br/><br/><br/><br/>
+
+$f_k(x)$
+
+<br/><br/><br/><br/>
+
+$P(Y = k | X = x)$
+
+<br/><br/><br/><br/>
+
+In general, estimating $\pi_k$ is easy if we have a random sample of $Y$'s from the population.
+
+<br/><br/><br/><br/>
+
+Estimating $f_k(x)$ is more difficult unless we assume some particular forms.
+
+\newpage
+
+
+
+## p = 1
+
+Let's (for now) assume we only have $1$ predictor. We would like to obtain an estimate for $f_k(x)$ that we can plug into our formula to estimate $p_k(x)$. We will then classify an observation to the class for which $\hat{p}_k(x)$ is greatest.
+
+Suppose we assume that $f_k(x)$ is normal. In the one-dimensional setting, the normal density takes the form
+
+<br/><br/><br/><br/><br/><br/>
+
+Plugging this into our formula to estimate $p_k(x)$,
+
+<br/><br/><br/><br/><br/><br/>
+
+We then assign an observation $X = x$ to the class which makes $p_k(x)$ tthe largest. This is equivalent to
+
+<br/><br/><br/><br/><br/><br/>
+
+```{example}
+Let $K = 2$ and $\pi_1 = \pi_2$. When does the Bayes classifier assign an observation to class $1$?
+```
+
+\newpage
+
+```{r, echo = FALSE}
+x <- seq(-6, 6, length.out = 1000)
+ggplot() +
+  geom_line(aes(x, dnorm(x, 1.25, 1)), colour = "red") +
+  geom_line(aes(x, dnorm(x, -1.25, 1)), colour = "blue") +
+  geom_vline(aes(xintercept = 0), lty = 2) +
+  xlab("") + ylab("")
+```
+
+<br/><br/><br/><br/>
+
+In practice, even if we are certain of our assumption that $X$ is drawn from a Gaussian distribution within each class, we still have to estimate the parameters $\mu_1, \dots, \mu_K, \pi_1, \dots, \pi_K, \sigma^2$.
+
+The *linear discriminant analysis* (LDA) method approximated the Bayes classifier by plugging estimates in for $\pi_k, \mu_k, \sigma^2$.
+
+<br/><br/><br/><br/><br/><br/><br/>
+
+Sometimes we have knowledge of class membership probabilities $\pi_1, \dots, \pi_K$ that can be used directly. If we do not, LDA estimates $\pi_k$ using the proportion of training observations that belong to the $k$th class.
+
+<br/>
+
+The LDA classifier assignes an observation $X = x$ to the class with the highest value of
+
+\newpage
+
+```{r, echo = FALSE}
+df <- data.frame(x = rnorm(20, 1.25, 1), y = "1") %>%
+  bind_rows(data.frame(x = rnorm(20, -1.25, 1), y = "2"))
+
+df %>%
+  group_by(y) %>%
+  summarise(mu = mean(x), pi = n()/nrow(df)) %>%
+  data.frame() -> ests
+
+ests$sigma2 <- df %>%
+  left_join(ests) %>%
+  mutate(summand = (x - mu)^2) %>%
+  group_by(y) %>%
+  summarise(summand = sum(summand)) %>%
+  summarise(sigma2 = sum(summand)/(nrow(df) - nrow(ests))) %>% .$sigma2
+
+
+ggplot() +
+  geom_histogram(aes(x, group = y, fill = y), data = df, bins = 30, position = "dodge") +
+  geom_vline(aes(xintercept = 0), lty = 2) +
+  geom_vline(aes(xintercept = sum(ests$mu)/2))
+
+```
+
+<br/><br/>
+
+```{r, echo = FALSE}
+## test data
+test_df <- data.frame(x = rnorm(20000, 1.25, 1), y = "1") %>%
+  bind_rows(data.frame(x = rnorm(20000, -1.25, 1), y = "2"))
+
+test_df %>%
+  mutate(pred = as.numeric(x <= sum(ests$mu)/2) + 1) %>%
+  select(y, pred) %>%
+  table() -> confusion
+
+test_df %>%
+  mutate(pred = as.numeric(x <= 0) + 1) %>%
+  select(y, pred) %>%
+  table() -> confusion_bayes
+
+confusion
+```
+
+The LDA test error rate is approximately `r percent((confusion[2, 1] + confusion[1, 2])/sum(confusion), accuracy = .01)` while the Bayes classifier error rate is approximately `r percent((confusion_bayes[2, 1] + confusion_bayes[1, 2])/sum(confusion_bayes), accuracy = .01)`.
+
+<br/><br/><br/><br/><br/>
+
+The LDA classifier results from assuming that the observations within each class come from a normal distribution with a class-specific mean vector and a common variance $\sigma^2$ and plugging estimates for these parameters into the Bayes classifier.
+
+\newpage
+
+## p > 1
+
+We now extend the LDA classifier to the case of multiple predictors. We will assume
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+
+Formally the multivariate Gaussian density is defined as
+
+<br/><br/><br/><br/><br/><br/>
+
+```{r, echo = FALSE}
+library(mvtnorm)
+```
+
+```{r, echo = FALSE, cache = TRUE}
+expand.grid(x1 = seq(-10, 10, length.out = 1000), 
+            x2 = seq(-10, 10, length.out = 1000)) %>%
+  data.frame() %>%
+  mutate(indep = dmvnorm(.),
+         corr = dmvnorm(., mean = c(0, 0), sigma = matrix(c(1, .5, .5, 1), ncol = 2))) %>% 
+  gather(density, f, indep, corr) %>% 
+  ggplot() +
+  geom_contour(aes(x1, x2, z = f)) +
+  facet_wrap(.~density)
+```
+
+\newpage
+
+In the case of $p > 1$ predictors, the LDA classifier assumes the observations in the $k$th class are drawn from a multivariate Gaussian distribution $N(\boldsymbol \mu_k, \boldsymbol \Sigma)$. 
+
+Plugging in the density function for the $k$th class, results in a Bayes classifier
+
+<br/><br/><br/><br/><br/><br/>
+
+Once again, we need to estimate the unknown parameters $\boldsymbol \mu_1, \dots, \boldsymbol \mu_K, \pi_1, \dots, \pi_K, \boldsymbol \Sigma$. 
+
+<br/>
+
+To classify a new value $X = x$, LDA plugs in estimates into $\delta_k(x)$ and chooses the class which maximized this value.
+
+Let's perform LDA on the `Default` data set to predict if an individual will default on their CC payment based on balance and student status.
+
+```{r, message = FALSE}
+library(MASS) # package containing lda function
+lda_fit <- lda(default ~ student + balance, data = Default)
+lda_fit
+
+# training data confusion matrix
+table(predict(lda_fit)$class, Default$default)
+```
+
+Why does the LDA classifier do such a poor job of classifying the customers who default?
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+```{r}
+table(predict(lda_fit)$posterior[, "Yes"] > 0.2, Default$default)
+```
+
+
+```{r, echo = FALSE, cache = TRUE, fig.height=2}
+get_errors <- function(model, y, tau) {
+  conf <- table(predict(model)$posterior[, 2] > tau, y)
+
+  data.frame(error_1 = conf[2, 1]/sum(conf[, 1]),
+             error_2 = conf[1, 2]/sum(conf[, 2]),
+             error_tot = (conf[2, 1] + conf[1, 2])/sum(conf))
+}
+
+res <- data.frame()
+for(tau in seq(0.0001, 0.5, by = .0001)) {
+  res <- rbind(res, data.frame(threshold = tau, get_errors(lda_fit, Default$default, tau)))
+}
+
+res %>%
+  gather(error, value, -threshold) %>%
+  ggplot() +
+  geom_line(aes(threshold, value, colour = error))
+```
+
+
+## QDA
+
+LDA assumes that the observations within each class are drawn from a multivariate Gaussian distribution with a class-specific mean vector and a common covariance matrix across all $K$ classes.
+
+*Quadratic Discriminant Analysis* (QDA) also assumes the observations within each class are drawn from a multivariate Gaussian distribution with a class-specific mean vector but now each class has its own covariance matrix.
+
+<br/><br/><br/><br/>
+
+Under this assumption, the Bayes classifier assignes observation $X = x$ to class $k$ for whichever $k$ maximizes
+
+<br/><br/><br/>
+
+When would we prefer QDA over LDA?
+
+```{r, echo = FALSE, cache=TRUE, fig.height = 2}
+## make fake data
+mu_1 <- c(-1, -1)
+mu_2 <- c(1, 1)
+sigma_1 <- matrix(c(1, .5, .5, 1), nrow = 2)
+sigma_2 <- matrix(c(1, -.5, -.5, 1), nrow = 2)
+
+# lda will be better because this data is generated from the same sigma
+lda_better_train <- data.frame(class = "1", rmvnorm(100, mu_1, sigma_1)) %>%
+  bind_rows(data.frame(class = "2", rmvnorm(100, mu_2, sigma_1)))
+
+# lqa will be better because this data is generated from different sigmas
+qda_better_train <- data.frame(class = "1", rmvnorm(100, mu_1, sigma_1)) %>%
+  bind_rows(data.frame(class = "2", rmvnorm(100, mu_2, sigma_2)))
+
+names(lda_better_train) <- names(qda_better_train) <- c("class", "x1", "x2")
+
+## models -- lda and qga fit
+lda_fit_lda_better <- lda(class ~ x1 + x2, data = lda_better_train)
+qda_fit_lda_better <- qda(class ~ x1 + x2, data = lda_better_train)
+lda_fit_qda_better <- lda(class ~ x1 + x2, data = qda_better_train)
+qda_fit_qda_better <- qda(class ~ x1 + x2, data = qda_better_train)
+
+## function to calculate the Bayes classifier boundary
+delta <- function(x, mu, sigma, pi) {
+  -0.5 * t(x) %*% solve(sigma) %*% x + t(x) %*% solve(sigma) %*% mu - 0.5 * t(mu) %*% solve(sigma) %*% mu - 0.5 * log(sum(diag(sigma))) + log(pi)
+}
+
+## create plot data to separate the space
+expand.grid(x1 = seq(-4, 4, length.out = 100), 
+            x2 = seq(-4, 4, length.out = 100)) %>%
+  data.frame() -> plot_dat
+
+## lda better situation data  
+lda_plot_dat <- data.frame(plot_dat, 
+                           delta_1 = apply(plot_dat, 1, delta, mu = mu_1, sigma = sigma_1, pi = 0.5),
+                           delta_2 = apply(plot_dat, 1, delta, mu = mu_2, sigma = sigma_1, pi = 0.5)) %>%
+  mutate(bayes_classifier = ifelse(delta_1 >= delta_2, "1", "2")) %>%
+  mutate(lda_classifier = as.character(predict(lda_fit_lda_better, plot_dat)$class)) %>%
+  mutate(qda_classifier = as.character(predict(qda_fit_lda_better, plot_dat)$class))
+  
+## qda better situation data
+qda_plot_dat <- data.frame(plot_dat, 
+                           delta_1 = apply(plot_dat, 1, delta, mu = mu_1, sigma = sigma_1, pi = 0.5),
+                           delta_2 = apply(plot_dat, 1, delta, mu = mu_2, sigma = sigma_2, pi = 0.5)) %>%
+  mutate(bayes_classifier = ifelse(delta_1 >= delta_2, "1", "2")) %>%
+  mutate(lda_classifier = as.character(predict(lda_fit_qda_better, plot_dat)$class)) %>%
+  mutate(qda_classifier = as.character(predict(qda_fit_qda_better, plot_dat)$class))
+
+## make plots
+lda_plot_dat %>%
+  dplyr::select(-delta_1, -delta_2) %>%
+  gather(classifier, class, -x1, -x2) %>%
+  ggplot() +
+  geom_tile(aes(x1, x2, fill = class), alpha = 0.5) +
+  facet_wrap(.~classifier) +
+  geom_point(aes(x1, x2, colour = class), data = lda_better_train)
+  
+qda_plot_dat %>%
+  dplyr::select(-delta_1, -delta_2) %>%
+  gather(classifier, class, -x1, -x2) %>%
+  ggplot() +
+  geom_tile(aes(x1, x2, fill = class), alpha = 0.5) +
+  facet_wrap(.~classifier) +
+  geom_point(aes(x1, x2, colour = class), data = qda_better_train)
+
+```
+
+# KNN
+
+Another method we can use to estimate $P(Y = k | X = x)$ (and thus estimate the Bayes classifier) is through the use of $K$-nearest neighbors.
+
+The KNN classifier first identifies the $K$ points in the training data that are closest to the test data point $X = x$, called $\mathcal{N}(x)$.
+
+<br/><br/><br/><br/><br/><br/>
+
+Just as with regression tasks, the choice of $K$ (neighborhood size) has a drastic effect on the KNN classifier obtained.
+
+```{r, echo = FALSE}
+library(class)
+```
+
+```{r, echo = FALSE, cache = TRUE, fig.show='hold', out.width="50%", fig.height=5}
+## make fake data
+mu_1 <- c(-1, 1)
+mu_2 <- c(2, -1)
+mu_3 <- c(-3, .1)
+mu_4 <- c(1, -1)
+sigma_1 <- matrix(c(1, .5, .5, 1), nrow = 2)
+sigma_2 <- matrix(c(1, -.5, -.5, 1), nrow = 2)
+
+sample_mixture2 <- function(n, mu_1, mu_2, sigma, p) {
+  z <- rbinom(n, 1, p)
+  z*rmvnorm(n, mu_1, sigma) + (1 - z)*rmvnorm(n, mu_2, sigma) 
+}
+
+d_mixture2 <- function(x, mu_1, mu_2, sigma, p) {
+  p*dmvnorm(x, mu_1, sigma) + (1 - p)*dmvnorm(x, mu_2, sigma) 
+}
+
+# training data from the mixture
+train <- data.frame(class = "1", sample_mixture2(100, mu_1, mu_2, sigma_1, 0.2)) %>%
+  bind_rows(data.frame(class = "2", sample_mixture2(100, mu_3, mu_4, sigma_1, 0.7)))
+
+names(train) <- c("class", "x1", "x2")
+
+## function to calculate the Bayes classifier boundary
+bayes_classifier <- function(x) {
+  as.character(as.numeric(d_mixture2(x, mu_1, mu_2, sigma_1, 0.2)*0.5 < d_mixture2(x, mu_3, mu_3, sigma_1, 0.7)*0.5) + 1)
+}
+
+## create plot data to separate the space
+expand.grid(x1 = seq(-6, 6, length.out = 500), 
+            x2 = seq(-6, 6, length.out = 500)) %>%
+  data.frame() -> plot_dat
+
+## knn plots for each k
+for(k in c(1, 10, 100)) {
+  ## fit knn
+  knn_fit <- knn(train[, -1], plot_dat, train$class, k = k)
+  
+  knn_plot_dat <- plot_dat %>%
+    mutate(class = as.character(knn_fit))
+  
+  ## make plots
+  knn_plot_dat %>%
+    ggplot() +
+    geom_tile(aes(x1, x2, fill = class), alpha = 0.5) +
+    geom_point(aes(x1, x2, colour = class), data = train) +
+    ggtitle(paste("KNN, K =", k)) +
+    theme(text = element_text(size = 20), legend.position = 'hide') -> p
+  
+  print(p)
+}
+
+plot_dat %>%
+  mutate(class = apply(plot_dat, 1, bayes_classifier)) %>%
+  ggplot() +
+  geom_tile(aes(x1, x2, fill = class), alpha = 0.5) +
+  geom_point(aes(x1, x2, colour = class), data = train) +
+  ggtitle("Bayes Classifier") +
+  theme(text = element_text(size = 20))
+```
+
+
+# Comparison
+
+LDA vs. Logistic Regression
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+(LDA \& Logistic Regression) vs. KNN
+
+<br/><br/><br/><br/><br/><br/>
+
+QDA

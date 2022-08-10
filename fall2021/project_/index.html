@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Project | DSCI445: Statistical Learning</title>
+    <link rel="stylesheet" href="/fall2021/css/style.css" />
+    <link rel="stylesheet" href="/fall2021/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/fall2021/">Home</a></li>
+      
+      <li><a href="/fall2021/syllabus/">Syllabus</a></li>
+      
+      <li><a href="/fall2021/calendar/">Calendar</a></li>
+      
+      <li><a href="/fall2021/homework/">Homework</a></li>
+      
+      <li><a href="/fall2021/project/">Project</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Project</span></h1>
+
+
+</div>
+
+<main>
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<p>The goal of the project is to use the methods we have learned in class and extend our knowledge in smaller groups. Below is an example of a project description. If your group has an alternative proposal, please schedule time to discuss with me prior to the proposal due date.</p>
+<p>One example project is to first to identify an article in the scientific/statistical literature that reports on a Monte Carlo study that was conducted to evaluate a statistical method. After an article has been selected, the project would be to design and conduct a similar study and report on it. The Monte Carlo study in the project should replicate at least a portion of the study reported in the chosen article. The project should extend the Monte Carlo experiment reported to include additional factors or additional levels of factors.</p>
+<p>This is a group project and must be done in a collaborative fashion. This means all work will be completed on GitHub (<a href="https://github.com" class="uri">https://github.com</a>). You will be assessed on how well you collaborate. You will select groups of size 3. You <em>must</em> be in a group to receive credit for this project.</p>
+<div id="deliverables" class="section level2">
+<h2>Deliverables</h2>
+<p>Your project deliverables are two-fold. The first is a paper written in Rmarkdown (with references). The second is a an in-class presentation in which all members of your group will participate.</p>
+</div>
+<div id="grading" class="section level2">
+<h2>Grading</h2>
+<p>The project is worth <strong>30%</strong> of the final grade for the course. The project grade is broken down as follows:</p>
+<p><strong>Paper (40%)</strong> A paper detailing the motivation, methodology, and results of your project, complete with references.</p>
+<p><strong>Presentation (30%)</strong> All members of the team will present your project in class. You will be graded on clarity of your exposition, content of the project, and graphical presentations of results. In-class presentations will be peer-graded and last 20-25 minutes each.</p>
+<p><strong>Collaboration and Reproducibility (15%)</strong> Your slides and paper will be checked for reproducibility based on what is on GitHub at the due date. You will also be graded on your ability to collaborate, which will be checked by commit history.</p>
+<p><strong>Professionalism (15%)</strong> Did your group meet all interim deadlines on the project?</p>
+</div>
+<div id="timeline" class="section level2">
+<h2>Timeline</h2>
+<p>No late projects will be accepted.</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:left;">
+Milestone
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2020-11-06
+</td>
+<td style="text-align:left;">
+Groups formed – Send e-mail to inform me of your group and schedule meeting time.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-11-13
+</td>
+<td style="text-align:left;">
+Proposal due – Meet with me for 15 minutes to discuss project plan by end of day.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-12-11
+</td>
+<td style="text-align:left;">
+In class presentations.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-12-13
+</td>
+<td style="text-align:left;">
+In class presentations.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-12-20
+</td>
+<td style="text-align:left;">
+Deliverables due by 8:20pm (end of our scheduled final time) – Turn in PDF of paper and presentation slides to canvas and be sure GitHub reflects all work.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="presentation-order" class="section level2">
+<h2>Presentation Order</h2>
+<pre class="r"><code>set.seed(400) # reproducible
+groups &lt;- 1:5 # group numbers
+tuesday &lt;- sample(groups, 3)
+thursday &lt;- sample(groups[!groups %in% tuesday])</code></pre>
+<p>Groups presenting on <strong>Tuesday</strong>: Group 5, Group 2<br />
+Groups presenting on <strong>Thursday</strong>: Group 1, Group 4, Group 3</p>
+</div>
+
+</main>
+
+  <footer>
+  <script src="//yihui.name/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+  <hr/>
+  <a href="https://canvas.colostate.edu">Canvas</a> | <a href="https://rstudio.cloud">RStudio Cloud</a> | © <a href="https://andeekaplan.com">Andee Kaplan</a> 2021
+  
+  </footer>
+  </body>
+</html>
+
