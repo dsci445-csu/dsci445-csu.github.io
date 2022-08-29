@@ -1,7 +1,7 @@
 ---
 title: "DSCI445 - Homework 1"
 author: "Your Name"
-date: "Due 9/11/2019 by 4pm"
+date: "Due 09/09/2021 by 4pm"
 output: pdf_document
 ---
 
@@ -55,5 +55,15 @@ Next fit linear models using the `lm()` function:
 (c) How do your results from (a) compare to your results from (b)? Create a plot displaying the univariate regression coefficients from (a) on the $x$-axis and the multiple regression coefficients from (b) on the $y$-axis. That is, each predictor is displayed as a single point on the plot. Its coefficient in a simple linear regression model is shown as its $x$ coordinate and its coefficient in a multiple linear regression model is shown as its $y$ coordinate. Describe what you see.
 
  
-Turn in in a pdf of your analysis to canvas using the provided Rmd file as a template. Your Rmd file on rstudio.cloud will also be used in grading, so be sure they are identical.
+Turn in in a pdf of your analysis to canvas using the provided Rmd file as a template. Your Rmd file on the server will also be used in grading, so be sure they are identical.
 
+**Be sure to share your server project with the instructor and grader:**
+
+1. Open your hw-1 project on liberator.stat.colostate.edu
+2. Click the drop down on the project (top right side) > Share Project...
+    
+  ![share project](share_project.png)
+  
+3. Click the drop down and add "dsci445instructors" to your project.
+
+This is how you **receive points** for reproducibility on your homework!
