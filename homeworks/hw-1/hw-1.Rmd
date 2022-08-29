@@ -62,8 +62,14 @@ Turn in in a pdf of your analysis to canvas using the provided Rmd file as a tem
 1. Open your hw-1 project on liberator.stat.colostate.edu
 2. Click the drop down on the project (top right side) > Share Project...
     
-  ![share project](share_project.png)
+    ```{r, echo=FALSE, out.width="25%"}
+    knitr::include_graphics("share_project.png")
+    ```
   
 3. Click the drop down and add "dsci445instructors" to your project.
+
+    ```{r, echo=FALSE, out.width="25%"}
+    knitr::include_graphics("share_dropdown.png")
+    ```
 
 This is how you **receive points** for reproducibility on your homework!
