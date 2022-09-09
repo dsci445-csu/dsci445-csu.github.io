@@ -74,4 +74,18 @@ In this exercise you will create some simulated data and will fit simple linear 
     
 4. Using the `Boston` data set, fit classification models in order to predict whether a given suburb has a crime rate above or below the median. Explore logistic regression, LDA, and KNN models using various subsets of the predictors. Describe your findings.
 
-Turn in in a pdf of your homework to canvas using the provided Rmd file as a template. Your Rmd file on rstudio.cloud will also be used in grading, so be sure they are identical.
+Turn in in a pdf of your homework to canvas using the provided Rmd file as a template. Your Rmd file on the server will also be used in grading, so be sure they are identical.
+
+**Be sure to share your server project with the instructor and grader:**
+
+1. Open your hw-1 project on liberator.stat.colostate.edu
+2. Click the drop down on the project (top right side) > Share Project...
+    
+    <img src="share_project.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" width="25%" />
+  
+3. Click the drop down and add "dsci445instructors" to your project.
+
+    <img src="share_dropdown.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="25%" />
+
+This is how you **receive points** for reproducibility on your homework!
+
