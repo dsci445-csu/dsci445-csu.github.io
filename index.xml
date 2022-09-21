@@ -22,7 +22,11 @@
       
       <guid>/homework/</guid>
       <description>  All homework assignments are due at 4pm on the date listed in the table below.
+<<<<<<< HEAD
   Homework  Due  Assignment      1  2022-09-12  Homework 1 – ggplot2 &amp;amp; Regression    2  2022-09-26  Homework 2 – Classification    3  2021-10-08     4  2021-10-22     5  2021-11-05     6  2021-11-19     7  2021-12-10      </description>
+=======
+  Homework  Due  Assignment      1  2022-09-12  Homework 1 – ggplot2 &amp;amp; Regression    2  2021-09-24  Homework 2 – Classification    3  2021-10-08     4  2021-10-22     5  2021-11-05     6  2021-11-19     7  2021-12-10      </description>
+>>>>>>> 22671ec97a020318ecd949e4677cb0140ecbf9b6
     </item>
     
     <item>
