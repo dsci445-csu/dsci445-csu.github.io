@@ -1,7 +1,7 @@
 ---
 title: "DSCI445 - Homework 3"
 author: "Your Name"
-date: "Due 10/09/2019 by 4pm"
+date: "Due 10/07/2022 by 4pm"
 output: pdf_document
 ---
 
@@ -34,7 +34,7 @@ set.seed(445)
     
     d. Now consider  logistic regression model that predicts the probability of default using `income`, `balance`, and a dummy variable for `student`. Estimate the test error for this model using the validation set approach. Comment on whether or not including `student` leads to a reduction in the test error rate.
     
-4. The `cv.glm()` function can be used to compute the LOOCV test error rate estimate. Alternatively, one could compute those quanitities using `glm()`, `predict.glm()`, and a `for` loop. You will take the second approach in the following problem.
+4. The `vfold_cv()` function can be used to compute the LOOCV test error rate estimate. Alternatively, one could compute those quantitities using a `for` loop. You will take the second approach in the following problem.
 
     a. Fit a logistic regression model that predicts `Direction` using `Lag1` and `Lag2` using the `Weekly` data set.
     
@@ -81,6 +81,21 @@ set.seed(445)
 
 
 
+Turn in in a pdf of your analysis to canvas using the provided Rmd file as a template. Your Rmd file on the server will also be used in grading, so be sure they are identical.
 
+**Be sure to share your server project with the instructor and grader:**
 
-Turn in in a pdf of your homework to canvas using the provided Rmd file as a template. Your Rmd file on rstudio.cloud will also be used in grading, so be sure they are identical.
+1. Open your hw-1 project on liberator.stat.colostate.edu
+2. Click the drop down on the project (top right side) > Share Project...
+    
+    ```{r, echo=FALSE, out.width="25%"}
+    knitr::include_graphics("share_project.png")
+    ```
+  
+3. Click the drop down and add "dsci445instructors" to your project.
+
+    ```{r, echo=FALSE, out.width="25%"}
+    knitr::include_graphics("share_dropdown.png")
+    ```
+
+This is how you **receive points** for reproducibility on your homework!
