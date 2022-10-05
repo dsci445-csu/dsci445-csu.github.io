@@ -26,7 +26,7 @@ Homework 3 in DSCI445: Statistical Machine Learning @ CSU
     
     d. Now consider  logistic regression model that predicts the probability of default using `income`, `balance`, and a dummy variable for `student`. Estimate the test error for this model using the validation set approach. Comment on whether or not including `student` leads to a reduction in the test error rate.
     
-4. The `cv.glm()` function can be used to compute the LOOCV test error rate estimate. Alternatively, one could compute those quanitities using `glm()`, `predict.glm()`, and a `for` loop. You will take the second approach in the following problem.
+4. The `vfold_cv()` function can be used to compute the LOOCV test error rate estimate. Alternatively, one could compute those quantitities using a `for` loop. You will take the second approach in the following problem.
 
     a. Fit a logistic regression model that predicts `Direction` using `Lag1` and `Lag2` using the `Weekly` data set.
     
@@ -47,7 +47,8 @@ Homework 3 in DSCI445: Statistical Machine Learning @ CSU
 5. We will now perform cross-validation on a simulated data set.
 
     a. Generate a simulated data set as follows
-        ```
+        
+        ```r
         x <- rnorm(100)
         y <- x - 2*x^2 + rnorm(100)
         
@@ -70,5 +71,19 @@ Homework 3 in DSCI445: Statistical Machine Learning @ CSU
     e. Which of the models in c. had the smallest LOOCV error? Is this what you expected? Explain your answer.
     
     f. Comment on the statistical significance of the coefficient estimates that results from fitting each of the models in c. using least suares. Do these results agree with your conclusions drawn based on the cross-validation results?
-        
+
+Turn in in a pdf of your analysis to canvas using the provided Rmd file as a template. Your Rmd file on the server will also be used in grading, so be sure they are identical.
+
+**Be sure to share your server project with the instructor and grader:**
+
+1. Open your hw-1 project on liberator.stat.colostate.edu
+2. Click the drop down on the project (top right side) > Share Project...
+    
+    <img src="share_project.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="25%" />
+  
+3. Click the drop down and add "dsci445instructors" to your project.
+
+    <img src="share_dropdown.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="25%" />
+
+This is how you **receive points** for reproducibility on your homework!        
     
