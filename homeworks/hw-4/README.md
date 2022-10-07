@@ -4,12 +4,13 @@ Homework 4 in DSCI445: Statistical Machine Learning @ CSU
 
 ## Assignment
 
-Here is a useful list of functions for the methods in this chapter:
+**Note:** `tidymodels` does not include a way to perform subset selection. Here is a useful list of functions for the methods in this chapter:
 
-- `regsubsets` in the `leaps` package peforms subset selection methods.
-- `glmnet` in the `glmnet` package performs ridge regression and the lasso.
-- `pcr` in the `pls` package performs principal components regression.
-- `plsr` in the `pls` package performs partial least squares.
+- `regsubsets` in the `leaps` package performs subset selection methods.
+- `linear_reg(mixture = 0, penalty = lambda) |> set_mode("regression") |> set_engine("glmnet")` defines ridge regression with penalty $\lambda$.
+- `linear_reg(mixture = 1, penalty = lambda) |> set_mode("regression") |> set_engine("glmnet")` defines the lasso with penalty $\lambda$.
+- Recipe steps `step_dummy(all_nominal_predictors())`, `step_normalize(all_predictors())`, and `step_pca(all_predictors(), threshold = tune())` create PCA components.
+- Recipe steps `step_dummy(all_nominal_predictors())`, `step_normalize(all_predictors())`, and `step_pls(all_predictors(), threshold = tune())` create PLS components.
 
 Be sure to `set.seed(445)`.
 
@@ -80,3 +81,17 @@ Be sure to `set.seed(445)`.
     
     c. Does your chosen model involve all of the features in the data set? Why or why not?
 
+Turn in in a pdf of your analysis to canvas using the provided Rmd file as a template. Your Rmd file on the server will also be used in grading, so be sure they are identical.
+
+**Be sure to share your server project with the instructor and grader:**
+
+1. Open your hw-4 project on liberator.stat.colostate.edu
+2. Click the drop down on the project (top right side) > Share Project...
+    
+    <img src="share_project.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="25%" />
+  
+3. Click the drop down and add "dsci445instructors" to your project.
+
+    <img src="share_dropdown.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="25%" />
+
+This is how you **receive points** for reproducibility on your homework!   

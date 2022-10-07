@@ -78,4 +78,3 @@ set.seed(445)
     
     c. Does your chosen model involve all of the features in the data set? Why or why not?
 
-Turn in in a pdf of your homework to canvas using the provided Rmd file as a template. Your Rmd file on rstudio.cloud will also be used in grading, so be sure they are identical.
