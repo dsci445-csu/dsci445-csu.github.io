@@ -6,7 +6,7 @@ Homework 5 in DSCI445: Statistical Machine Learning @ CSU
 
 Be sure to `set.seed(445)`.
 
-### Non-linear Models
+# Non-linear Models
 
 1. We know that a cubic regression spline with one knot at $\xi$ can be obtained using a basis of the form $x, x^2, x^3, (x - \xi)^3_+$ where $(x - \xi)^3_+ = (x - \xi)^3$ if $x > \xi$ and $0$ otherwise. We will now show that a function of the form
 $$
@@ -49,9 +49,7 @@ is a cubic regression spline, regardless of the values of $\beta_0, \beta_1, \be
     
     a) Perform polynomial regression to predict `wage` using `age`. Use cross-validation to select the optimal degree $d$ for the polynomial. What degree was chosen? Make a plot of the fit obtained.
         
-    b) Use ANOVA (`anova()`) to compare your polynomial regressions from part a (Note: we can do this comparison because the models are nested). Which degree model would you choose? Compare this to your results from part a.
-        
-    c) Fit a step function to predict `wage` using `age` and perform cross validation to choose the optimal number of cuts. Make a plot of the fit obtained.
+    b) Fit a step function to predict `wage` using `age` and perform cross validation to choose the optimal number of cuts. Make a plot of the fit obtained.
         
 3. The `Wage` data set contains a number of other features not explored in this chapter, such as marital status (`maritl`) and job class (`jobclass`). Explore the relationships between some of these other predictors and `wage` and use non-linear fitting techniques in order to fit flexible models to the data. Create plots of the results obtained and write a summary of your findings.
      
@@ -106,35 +104,33 @@ is a cubic regression spline, regardless of the values of $\beta_0, \beta_1, \be
     h. Choose a different starting value for $\beta_1$ and repeat steps b.-g. Compare your results.
 
 
-### Tree-based Models
+# Tree-based Models
 
 6. This problem involves the $OJ$ data set in the $ISLR$ package.
 
     a. Create a training set containing a random sample of $800$ observations and a test set containing the remaining observations.
     
-    b. Fit a tree to the training data with `Purchase` as the response and the other variables as predictors. Use the `summary()` function to produce summary information about the tryy and describe the results obtained. What is the training error rate? How many terminal nodes does the tree have?
+    b. Fit a tree to the training data with `Purchase` as the response and the other variables as predictors. Describe the results obtained. What is the training error rate? How many terminal nodes does the tree have?
     
-    c. Type in the name of the tree object to get a detailed text output. Pick one of the terminal nodes and interpret the information displayed.
+    c. Create a plot of the tree and interpret.
     
-    d. Create a plot of the tree and interpret.
+    d. Predict the response on the test data and produce a confusion matrix comparing the test labels to the predicted labels. What is the test error rate?
     
-    e. Predict the response on the test data and produce a confusion matric comparing the test labels to the predicted labels. What is the test error rate?
+    e. Apply the cross validation to the training set in order to determine the optimal tree size.
     
-    f. Apply the `cv.tree()` function to the training set in order to determine the optimal tree size.
+    f. Produce a plot with tree size on the $x$-axis and CV error rate on the $y$-axis. Which tree size corresponds to the lowest CV classification error rate?
     
-    g. Produce a plot with tree size on the $x$-axis and CV error rate on the $y$-axis. Which tree size corresponds to the lowest CV classification error rate?
+    g. Produce a pruned tree corresponding to the optimal tree size. If CV doesn't lead to the selection of a pruned tree, then create a pruned tree with five terminal nodes.
     
-    h. Produce a pruned tree corresponding to the optimal tree size. If CV doesn't lead to the selection of a pruned tree, then create a pruned tree with five terminal nodes.
+    h. Compare the training error rates between the pruned and unpruned tree.
     
-    i. Compare the training error rates between the pruned and unpruned tree.
-    
-    j. Compare the test error rates between the pruned and unpruned tree.
+    i. Compare the test error rates between the pruned and unpruned tree.
 
 7. We will use boosting, bagging, and random forests to predict `Salary` in the `Hitters` data set.
 
     a. Remove the observations for which the salary information is unknown and then log-transform the salaries.
     
-    b. Create a training set consisting of the first $200$ observattions and a test set consisting of the remaining observations.
+    b. Create a training set consisting of the first $200$ observations and a test set consisting of the remaining observations.
     
     c. Perform boosting on the training set with $1,000$ trees for a range of values of the shrinkage parameter $\lambda$. Produce a plot with different shrinkage values on the $x$-axis and the corresponing training MSE on the $y$-axis.
     
@@ -147,3 +143,20 @@ is a cubic regression spline, regardless of the values of $\beta_0, \beta_1, \be
     g. Now apply bagging to the training data set. What is the test MSE for this approach?
     
     h. Now apply random forest to the training data set. What is the test MSE for this approach?
+    
+**Be sure to share your server project with the instructor and grader:**
+
+1. Open your hw-5 project on liberator.stat.colostate.edu
+2. Click the drop down on the project (top right side) > Share Project...
+    
+    ```{r, echo=FALSE, out.width="25%"}
+    knitr::include_graphics("share_project.png")
+    ```
+  
+3. Click the drop down and add "dsci445instructors" to your project.
+
+    ```{r, echo=FALSE, out.width="25%"}
+    knitr::include_graphics("share_dropdown.png")
+    ```
+
+This is how you **receive points** for reproducibility on your homework!   
