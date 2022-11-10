@@ -118,7 +118,7 @@ is a cubic regression spline, regardless of the values of $\beta_0, \beta_1, \be
     
     e. Apply the cross validation to the training set in order to determine the optimal tree size.
     
-    f. Produce a plot with complexity on the x-axis and CV error rate (or CV accuracy) on the y-axis. Which tree size corresponds to the lowest CV classification error rate?
+    f. Produce a plot with complexity on the $x$-axis and CV error rate (or CV accuracy) on the $y$-axis. Which tree size corresponds to the lowest CV classification error rate?
     
     g. Produce a pruned tree corresponding to the optimal tree size. If CV doesn't lead to the selection of a pruned tree, then create a pruned tree with five terminal nodes.
     
