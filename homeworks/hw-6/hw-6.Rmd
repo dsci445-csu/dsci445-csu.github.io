@@ -1,7 +1,7 @@
 ---
 title: "DSCI445 - Homework 6"
 author: "Your Name"
-date: "Due 11/20/2019 by 4pm"
+date: "Due 12/02/2022 by 4pm"
 output: pdf_document
 ---
 
@@ -70,7 +70,7 @@ set.seed(445)
 
     a) Create a binary variable that takes value 1 for gas mileage above the median and 0 for cars below the median.
   
-    b) Fit a support vector classifier to the data with various values of `cost`, in order to predict whether a car gets high or low gas mileage (be sure not to include the original gass mileage variable -- no cheating!). Report the cross-validation errors associated with different values of this parameter, comment on your results.
+    b) Fit a support vector classifier to the data with various values of `cost`, in order to predict whether a car gets high or low gas mileage (be sure not to include the original gas mileage variable -- no cheating!). Report the cross-validation errors associated with different values of this parameter, comment on your results.
   
     c) Now repeat (b) using SVMs with radial and polynomial basis kernels, with different values of `gamma`, `degree`, and `cost`. Report on your results.
   
@@ -80,11 +80,11 @@ set.seed(445)
 
     a) Create a training set containing a random sample of 900 observations and a test set containg the remaining observations.
   
-    b) Fit a support vecotr classifier to the training set using `cost = 0.01` with `Purchase` as the response and the other variables as predictors. Use the `summary()` function to produce summary statistics and describe the results obtained.
+    b) Fit a support vector classifier to the training set using `cost = 0.01` with `Purchase` as the response and the other variables as predictors. Use the `summary()` function to produce summary statistics and describe the results obtained.
   
     c) What are the training and test error rates?
   
-    d) Use the `tune()` function to select an optimal `cost`. Consider values between $0.01$ and $10$.
+    d) Use CV to select an optimal `cost`. Consider values between $0.01$ and $10$.
   
     e) Compute the training and test error rates using this new value for `cost`.
   
