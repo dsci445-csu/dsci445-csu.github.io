@@ -76,9 +76,9 @@ In this exercise you will create some simulated data and will fit simple linear 
 
 Turn in in a pdf of your homework to canvas using the provided Rmd file as a template. Your Rmd file on the server will also be used in grading, so be sure they are identical.
 
-**Be sure to share your server project with the instructor and grader:**
+**Be sure to share your server project with the instructor and grader. You only need to do this once per semester.**
 
-1. Open your hw-1 project on liberator.stat.colostate.edu
+1. Open your `homeworks` project on liberator.stat.colostate.edu
 2. Click the drop down on the project (top right side) > Share Project...
     
     ```{r, echo=FALSE, out.width="25%"}

@@ -72,18 +72,18 @@ Homework 3 in DSCI445: Statistical Machine Learning @ CSU
     
     f. Comment on the statistical significance of the coefficient estimates that results from fitting each of the models in c. using least suares. Do these results agree with your conclusions drawn based on the cross-validation results?
 
-Turn in in a pdf of your analysis to canvas using the provided Rmd file as a template. Your Rmd file on the server will also be used in grading, so be sure they are identical.
+Turn in in a pdf of your homework to canvas using the provided Rmd file as a template. Your Rmd file on the server will also be used in grading, so be sure they are identical.
 
-**Be sure to share your server project with the instructor and grader:**
+**Be sure to share your server project with the instructor and grader. You only need to do this once per semester.**
 
-1. Open your hw-1 project on liberator.stat.colostate.edu
+1. Open your `homeworks` project on liberator.stat.colostate.edu
 2. Click the drop down on the project (top right side) > Share Project...
     
-    <img src="share_project.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="25%" />
+    <img src="share_project.png" alt="plot of chunk unnamed-chunk-2" width="25%" />
   
 3. Click the drop down and add "dsci445instructors" to your project.
 
-    <img src="share_dropdown.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="25%" />
+    <img src="share_dropdown.png" alt="plot of chunk unnamed-chunk-3" width="25%" />
 
-This is how you **receive points** for reproducibility on your homework!        
+This is how you **receive points** for reproducibility on your homework! 
     
