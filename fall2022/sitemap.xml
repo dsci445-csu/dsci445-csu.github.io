@@ -2,20 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/calendar/</loc>
+    <loc>fall2022/calendar/</loc>
   </url><url>
-    <loc>/categories/</loc>
+    <loc>fall2022/categories/</loc>
   </url><url>
-    <loc>/</loc>
+    <loc>fall2022/</loc>
   </url><url>
-    <loc>/homework/</loc>
+    <loc>fall2022/homework/</loc>
   </url><url>
-    <loc>/project/</loc>
+    <loc>fall2022/project/</loc>
   </url><url>
-    <loc>/project_/</loc>
+    <loc>fall2022/project_/</loc>
   </url><url>
-    <loc>/syllabus/</loc>
+    <loc>fall2022/syllabus/</loc>
   </url><url>
-    <loc>/tags/</loc>
+    <loc>fall2022/tags/</loc>
   </url>
 </urlset>

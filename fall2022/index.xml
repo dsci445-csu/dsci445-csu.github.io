@@ -2,55 +2,55 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Home on DSCI445: Statistical Learning</title>
-    <link>/</link>
+    <link>fall2022/</link>
     <description>Recent content in Home on DSCI445: Statistical Learning</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="fall2022/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Calendar</title>
-      <link>/calendar/</link>
+      <link>fall2022/calendar/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/calendar/</guid>
+      <guid>fall2022/calendar/</guid>
       <description>    Date  Week  Topic  Content      2022-08-22  1  Welcome  Syllabus | Server Instructions |    2022-08-24  1  Introduction  Blank Notes | Filled Notes    2022-08-26  1  Lab: R + Rmarkdown  Notes | Lab | Blank Script | Solution – R | Solution – Rmd    2022-08-29  2  Statistical Learning  Blank Notes | Class Notes    2022-08-31  2  Stat Learning + Linear regression  Blank Notes | Class Notes    2022-09-02  2  Lab: tidyverse + ggplot2  Notes | Lab | Blank Script | Solution    2022-09-05  3  Labor Day     2022-09-07  3  Linear Regression  Class Notes    2022-09-09  3  Linear Regression  Class Notes    2022-09-12  4  Linear Regression  Class Notes    2022-09-14  4  KNN + Classification  Blank Notes | Class Notes – Regression | Class Notes – Fixed Plot | Class Notes – Classification    2022-09-16  4  Logistic Regression  Class Notes    2022-09-19  5  LDA  Class Notes    2022-09-21  5  LDA  Class Notes    2022-09-23  5  KNN + QDA + Lab: Classification  Lab | Blank Script | Class Notes | Lab Solution    2022-09-26  6  Model Assessment  Blank Notes | Class Notes    2022-09-28  6  Cross Validation  Class Notes    2022-09-30  6  Lab: Model Assessment  Lab | Blank Script | Class Notes | Lab Solution    2022-10-03  7  Project Info + GitHub  Blank Notes | Class Notes    2022-10-05  7  Model Selection  Blank Notes | Class Notes    2022-10-07  7  Model Selection  Class Notes    2022-10-10  8  Shrinkage Methods  Class Notes    2022-10-12  8  Dimension Reduction  Class Notes    2022-10-14  8  Lab: Regularization, PCR and PLS  Lab | Blank Script | Lab Solution    2022-10-17  9  PCR &amp;amp; PLS  Class Notes    2022-10-19  9  High Dimensions  Class Notes    2022-10-21  9  Moving Beyond Linearity  Blank Notes | Class Notes – High Dimensions | Class Notes – Beyond Linearity    2022-10-24  10  Regression Splines  Class Notes    2022-10-26  10  GAMs  Class Notes    2022-10-28  10  Lab: Regression Splines + GAMs  Lab | Blank Script | Class Notes | Lab Solution    2022-10-31  11  Tree-based methods  Blank Notes | Class Notes    2022-11-02  11  Trees  Class Notes    2022-11-04  11  Bagging  Class Notes    2022-11-07  12  Boosting + Random Forests  Class Notes    2022-11-09  12  Lab: Bagging + Boosting + Random Forests  Lab | Blank Script | Class Notes | Lab Solution    2022-11-11  12  Support Vector Machines  Blank Notes | Class Notes    2022-11-14  13  SVM  Class Notes    2022-11-16  13  SVM  Class Notes    2022-11-18  13  Lab: Support Vector Machines  Lab | Blank Script | Class Notes | Lab Solution    2022-11-21  14  Thanksgiving Break     2022-11-23  14  Thanksgiving Break     2022-11-25  14  Thanksgiving Break     2022-11-28  15  Unsupervised Learning + PCA  Blank Notes | Class Notes    2022-11-30  15  PCA  Class Notes    2022-12-02  15  Clustering  Class Notes | Lab | Lab Solution    2022-12-05  16  Project Presentations  Group 1 Feedback | Group 5 Feedback | Group 3 Feedback | Mikyla Feedback    2022-12-07  16  Project Presentations  Group 2 Feedback | Group 6 Feedback | Group 4 Feedback    2022-12-09  16  Project Presentations  Group 7 Feedback | Group 9 Feedback | Group 8 Feedback     </description>
     </item>
     
     <item>
       <title>Homework</title>
-      <link>/homework/</link>
+      <link>fall2022/homework/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/homework/</guid>
+      <guid>fall2022/homework/</guid>
       <description>  All homework assignments are due at 4pm on the date listed in the table below.
   Homework  Due  Assignment      1  2022-09-12  Homework 1 – ggplot2 &amp;amp; Regression    2  2022-09-26  Homework 2 – Classification    3  2021-10-08  Homework 3 – Cross Validation    4  2022-10-24  Homework 4 – Regularization and Model Selection    5  2022-11-11  Homework 5 – Non-linear and Tree-Based Models    6  2022-12-02  Homework 6 – Support Vector Machines    7  2022-12-15  OPTIONAL Homework 7 – Unsupervised Methods     </description>
     </item>
     
     <item>
       <title>Project</title>
-      <link>/project/</link>
+      <link>fall2022/project/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/project/</guid>
+      <guid>fall2022/project/</guid>
       <description>The goal of the project is to use the methods we have learned in class and extend our knowledge in smaller groups. Below is an example of a project description. If your group has an alternative proposal, please schedule time to discuss with me prior to the proposal due date.
 One example project is to compete in a Kaggle competition (https://www.kaggle.com/competitions). The “Knowledge” competitions are great choices, and we will discuss your choice of competition before you commit.</description>
     </item>
     
     <item>
       <title>Project</title>
-      <link>/project_/</link>
+      <link>fall2022/project_/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/project_/</guid>
+      <guid>fall2022/project_/</guid>
       <description>The goal of the project is to use the methods we have learned in class and extend our knowledge in smaller groups. Below is an example of a project description. If your group has an alternative proposal, please schedule time to discuss with me prior to the proposal due date.
 One example project is to first to identify an article in the scientific/statistical literature that reports on a Monte Carlo study that was conducted to evaluate a statistical method.</description>
     </item>
     
     <item>
       <title>Syllabus</title>
-      <link>/syllabus/</link>
+      <link>fall2022/syllabus/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/syllabus/</guid>
+      <guid>fall2022/syllabus/</guid>
       <description>Course Objectives Statistical Learning refers to a set of tools for modeling and understanding complex datasets. The area combines knowledge from statistics and computer science to tackle these “big data” problems and has become a popular area of work. By end of course, students will be able to formulate prediction problems as statistical machine learning problems, choose and apply the appropriate learning methods to their data, conduct well thought-out statistical machine learning experiments and interpret the results, and write technical reports describing their work.</description>
     </item>
     
