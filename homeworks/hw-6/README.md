@@ -91,9 +91,11 @@ Be sure to `set.seed(445)`.
   
     h) Which approach gives the best results on this data?
 
-**Be sure to share your server project with the instructor and grader:**
+Turn in in a pdf of your homework to canvas using the provided Rmd file as a template. Your Rmd file on the server will also be used in grading, so be sure they are identical.
 
-1. Open your hw-6 project on liberator.stat.colostate.edu
+**Be sure to share your server project with the instructor and grader. You only need to do this once per semester.**
+
+1. Open your `homeworks` project on liberator.stat.colostate.edu
 2. Click the drop down on the project (top right side) > Share Project...
     
     <img src="share_project.png" alt="plot of chunk unnamed-chunk-3" width="25%" />
@@ -102,5 +104,6 @@ Be sure to `set.seed(445)`.
 
     <img src="share_dropdown.png" alt="plot of chunk unnamed-chunk-4" width="25%" />
 
-This is how you **receive points** for reproducibility on your homework!  
+This is how you **receive points** for reproducibility on your homework!
+
 
