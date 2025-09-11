@@ -48,7 +48,7 @@ In this exercise you will create some simulated data and will fit simple linear 
     
         [Hint: A hypercube is a generalization of a cube to an arbitrary number of dimensions. When $p = 1$, a hypercube is simple a line segment. When $p = 2$ it is a square, and when $p = 100$ it is a $100$-dimensional cube.]
         
-2. Suppose we collect data for a group of students in a statistics class with variables $X_1 =$ hours studied, $X_2 =$ undergrad GPA, and $Y =$ receive an A. We fit a logistic regression and produce estimated coefficients, $\hat{\beta}_0 = -6, \hat{\beta}_1 = 0.05, \hat{beta}_2 = 1$.
+2. Suppose we collect data for a group of students in a statistics class with variables $X_1 =$ hours studied, $X_2 =$ undergrad GPA, and $Y =$ receive an A. We fit a logistic regression and produce estimated coefficients, $\hat{\beta}_0 = -6, \hat{\beta}_1 = 0.05, \hat{\beta}_2 = 1$.
 
     (a) Estimate the probability that a student who studies for $40$h and has an undergrad GPA of $3.5$ gets an A in the class.
     
@@ -72,20 +72,26 @@ In this exercise you will create some simulated data and will fit simple linear 
     
     (i) Experiment with different combinations of predictors, including possible transformations and interactions, for each of the methods. Report the variables, method, and associated confusion matrix that appears to provide the best results on the held out data. Note that you can experiment with values for $K$ in the KNN classifier.
     
-4. Using the `Boston` data set, fit classification models in order to predict whether a given suburb has a crime rate above or below the median. Explore logistic regression, LDA, and KNN models using various subsets of the predictors. Describe your findings.
+<!-- 4. Using the `Boston` data set, fit classification models in order to predict whether a given suburb has a crime rate above or below the median. Explore logistic regression, LDA, and KNN models using various subsets of the predictors. Describe your findings. -->
 
 Turn in in a pdf of your homework to canvas using the provided Rmd file as a template. Your Rmd file on the server will also be used in grading, so be sure they are identical.
 
-**Be sure to share your server project with the instructor and grader. You only need to do this once per semester.**
+**Be sure you have shared your server project with the instructor and grader. You only need to do this once per semester.**
 
 1. Open your `homeworks` project on liberator.stat.colostate.edu
 2. Click the drop down on the project (top right side) > Share Project...
     
+    <div class="figure">
     <img src="share_project.png" alt="plot of chunk unnamed-chunk-1" width="25%" />
+    <p class="caption">plot of chunk unnamed-chunk-1</p>
+    </div>
   
 3. Click the drop down and add "dsci445instructors" to your project.
 
+    <div class="figure">
     <img src="share_dropdown.png" alt="plot of chunk unnamed-chunk-2" width="25%" />
+    <p class="caption">plot of chunk unnamed-chunk-2</p>
+    </div>
 
 This is how you **receive points** for reproducibility on your homework!
 
