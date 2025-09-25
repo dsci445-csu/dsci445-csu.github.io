@@ -4,7 +4,7 @@ Homework 3 in DSCI445: Statistical Machine Learning @ CSU
 
 ## Assignment
 
-1. Explain how $k$-fold cross-validation is implements.
+1. Explain how $k$-fold cross-validation is implemented.
 
 2. What are the advantages and disadvantages of $k$-fold cross-validation relative to
     
@@ -69,7 +69,7 @@ Homework 3 in DSCI445: Statistical Machine Learning @ CSU
     
     e. Which of the models in c. had the smallest LOOCV error? Is this what you expected? Explain your answer.
     
-    f. Comment on the statistical significance of the coefficient estimates that results from fitting each of the models in c. using least suares. Do these results agree with your conclusions drawn based on the cross-validation results?
+    f. Comment on the statistical significance of the coefficient estimates that results from fitting each of the models in c. using least squares. Do these results agree with your conclusions drawn based on the cross-validation results?
 
 Turn in in a pdf of your homework to canvas using the provided Rmd file as a template. Your Rmd file on the server will also be used in grading, so be sure they are identical.
 

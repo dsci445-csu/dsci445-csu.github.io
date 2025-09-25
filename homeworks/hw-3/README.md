@@ -4,7 +4,7 @@ Homework 3 in DSCI445: Statistical Machine Learning @ CSU
 
 ## Assignment
 
-1. Explain how $k$-fold cross-validation is implements.
+1. Explain how $k$-fold cross-validation is implemented.
 
 2. What are the advantages and disadvantages of $k$-fold cross-validation relative to
     
@@ -48,7 +48,7 @@ Homework 3 in DSCI445: Statistical Machine Learning @ CSU
 
     a. Generate a simulated data set as follows
         
-        ```r
+        ``` r
         x <- rnorm(100)
         y <- x - 2*x^2 + rnorm(100)
         
@@ -70,7 +70,7 @@ Homework 3 in DSCI445: Statistical Machine Learning @ CSU
     
     e. Which of the models in c. had the smallest LOOCV error? Is this what you expected? Explain your answer.
     
-    f. Comment on the statistical significance of the coefficient estimates that results from fitting each of the models in c. using least suares. Do these results agree with your conclusions drawn based on the cross-validation results?
+    f. Comment on the statistical significance of the coefficient estimates that results from fitting each of the models in c. using least squares. Do these results agree with your conclusions drawn based on the cross-validation results?
 
 Turn in in a pdf of your homework to canvas using the provided Rmd file as a template. Your Rmd file on the server will also be used in grading, so be sure they are identical.
 
@@ -79,11 +79,17 @@ Turn in in a pdf of your homework to canvas using the provided Rmd file as a tem
 1. Open your `homeworks` project on liberator.stat.colostate.edu
 2. Click the drop down on the project (top right side) > Share Project...
     
+    <div class="figure">
     <img src="share_project.png" alt="plot of chunk unnamed-chunk-2" width="25%" />
+    <p class="caption">plot of chunk unnamed-chunk-2</p>
+    </div>
   
 3. Click the drop down and add "dsci445instructors" to your project.
 
+    <div class="figure">
     <img src="share_dropdown.png" alt="plot of chunk unnamed-chunk-3" width="25%" />
+    <p class="caption">plot of chunk unnamed-chunk-3</p>
+    </div>
 
 This is how you **receive points** for reproducibility on your homework! 
     
