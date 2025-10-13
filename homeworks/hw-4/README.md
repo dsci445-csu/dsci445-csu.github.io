@@ -53,7 +53,7 @@ Be sure to `set.seed(445)`.
 3. We have seen that as the number of features used in a model increases, the training error will necessarily decrease, but the test error may not. We will explore this with a simulated data set. Run the following code to generate your dataset.
 
     
-    ```r
+    ``` r
     p <- 20
     n <- 1000
     
@@ -83,15 +83,3 @@ Be sure to `set.seed(445)`.
 
 Turn in in a pdf of your homework to canvas using the provided Rmd file as a template. Your Rmd file on the server will also be used in grading, so be sure they are identical.
 
-**Be sure to share your server project with the instructor and grader. You only need to do this once per semester.**
-
-1. Open your `homeworks` project on liberator.stat.colostate.edu
-2. Click the drop down on the project (top right side) > Share Project...
-    
-    <img src="share_project.png" alt="plot of chunk unnamed-chunk-2" width="25%" />
-  
-3. Click the drop down and add "dsci445instructors" to your project.
-
-    <img src="share_dropdown.png" alt="plot of chunk unnamed-chunk-3" width="25%" />
-
-This is how you **receive points** for reproducibility on your homework!
