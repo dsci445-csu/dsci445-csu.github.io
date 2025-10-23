@@ -50,25 +50,8 @@ is a cubic regression spline, regardless of the values of $\beta_0, \beta_1, \be
         f''_1(x) = 2c_1 + 6d_1 x
         $$
     
-2. In this exercise, we will further analyze the `Wage` data set.
-    
-    a) Perform polynomial regression to predict `wage` using `age`. Use cross-validation to select the optimal degree $d$ for the polynomial. What degree was chosen? Make a plot of the fit obtained.
-        
-    b) Fit a step function to predict `wage` using `age` and perform cross validation to choose the optimal number of cuts. Make a plot of the fit obtained.
-        
-3. The `Wage` data set contains a number of other features not explored in this chapter, such as marital status (`maritl`) and job class (`jobclass`). Explore the relationships between some of these other predictors and `wage` and use non-linear fitting techniques in order to fit flexible models to the data. Create plots of the results obtained and write a summary of your findings.
-     
-4. This question relates to the `College` dat set. 
-    
-    a) Split the data into a training (60%) and test data set (40%). Using out-of-state tuition as the response and the other variables as the predictors, perform forward stepwise selection on the training set in order to identify a satisfactory model that uses a subset of the predictors.
-        
-    b) Fit a GAM on the training data, using out-of-state tuition as the response and the features selected in part a. as predictors with natural cubic splines and df = 6 for each continous variable. Plot the results and explain your findings.
-        
-    c) Evaluate the model obtained on the test set and explain the results obtained.
-        
-    d) For which variables is there evidence of a non-linear relationship with the response?
-        
-5. GAMs are generally fit using a *back-fitting* approach. The idea behind backfitting is quite simple and we will use a linear regression example to explore it.
+
+3. GAMs are generally fit using a *back-fitting* approach. The idea behind backfitting is quite simple and we will use a linear regression example to explore it.
     
     Suppose we would like to perform multiple linear regression, but we do not have software to do so. Instead, we only have software to perform simple linear regression. We could take the following iterative approach:
         
@@ -111,7 +94,7 @@ is a cubic regression spline, regardless of the values of $\beta_0, \beta_1, \be
 
 # Tree-based Models
 
-6. This problem involves the $OJ$ data set in the $ISLR$ package.
+4. This problem involves the $OJ$ data set in the $ISLR$ package.
 
     a. Create a training set containing a random sample of $800$ observations and a test set containing the remaining observations.
     
@@ -131,7 +114,7 @@ is a cubic regression spline, regardless of the values of $\beta_0, \beta_1, \be
     
     i. Compare the test error rates between the pruned and unpruned tree.
 
-7. We will use boosting, bagging, and random forests to predict `Salary` in the `Hitters` data set.
+5. We will use boosting, bagging, and random forests to predict `Salary` in the `Hitters` data set.
 
     a. Remove the observations for which the salary information is unknown and then log-transform the salaries.
     
