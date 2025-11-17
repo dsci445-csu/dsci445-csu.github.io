@@ -40,7 +40,7 @@ Be sure to `set.seed(445)`.
     a)  Generate a data set with $n = 500$ and $p = 2$, such that the observations belong to two classes with a quadratic decision boundary. E.g.,
       
       
-      ```r
+      ``` r
       n <- 500
       x1 <- runif(n) - 0.5
       x2 <- runif(n) - 0.5
@@ -63,17 +63,17 @@ Be sure to `set.seed(445)`.
   
     i) Comment on your results.
   
-3. In this problem, you will use support vector approaches to predict whether a given car gets high or low gas mileage based on the `Auto` data set in the `ISLR` package.
+<!-- 3. In this problem, you will use support vector approaches to predict whether a given car gets high or low gas mileage based on the `Auto` data set in the `ISLR` package. -->
 
-    a) Create a binary variable that takes value 1 for gas mileage above the median and 0 for cars below the median.
-  
-    b) Fit a support vector classifier to the data with various values of `cost`, in order to predict whether a car gets high or low gas mileage (be sure not to include the original gas mileage variable -- no cheating!). Report the cross-validation errors associated with different values of this parameter, comment on your results.
-  
-    c) Now repeat (b) using SVMs with radial and polynomial basis kernels, with different values of `gamma`, `degree`, and `cost`. Report on your results.
-  
-    d) Make some plots to back up your assertions in b) and c).
-  
-4. This problem involves the `OJ` data set in the `ISLR` package.
+<!--     a) Create a binary variable that takes value 1 for gas mileage above the median and 0 for cars below the median. -->
+
+<!--     b) Fit a support vector classifier to the data with various values of `cost`, in order to predict whether a car gets high or low gas mileage (be sure not to include the original gas mileage variable -- no cheating!). Report the cross-validation errors associated with different values of this parameter, comment on your results. -->
+
+<!--     c) Now repeat (b) using SVMs with radial and polynomial basis kernels, with different values of `gamma`, `degree`, and `cost`. Report on your results. -->
+
+<!--     d) Make some plots to back up your assertions in b) and c). -->
+
+3. This problem involves the `OJ` data set in the `ISLR` package.
 
     a) Create a training set containing a random sample of 900 observations and a test set containg the remaining observations.
   
@@ -98,11 +98,17 @@ Turn in in a pdf of your homework to canvas using the provided Rmd file as a tem
 1. Open your `homeworks` project on liberator.stat.colostate.edu
 2. Click the drop down on the project (top right side) > Share Project...
     
+    <div class="figure">
     <img src="share_project.png" alt="plot of chunk unnamed-chunk-3" width="25%" />
+    <p class="caption">plot of chunk unnamed-chunk-3</p>
+    </div>
   
 3. Click the drop down and add "dsci445instructors" to your project.
 
+    <div class="figure">
     <img src="share_dropdown.png" alt="plot of chunk unnamed-chunk-4" width="25%" />
+    <p class="caption">plot of chunk unnamed-chunk-4</p>
+    </div>
 
 This is how you **receive points** for reproducibility on your homework!
 
