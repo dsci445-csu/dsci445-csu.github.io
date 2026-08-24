@@ -8,20 +8,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width">
-<meta property="og:title" content="Lab 5: Regularization" />
+<meta property="og:title" content="Lab 7: Nonlinear Models" />
 
 
 
 
 
 
-<meta name="description" content="Lab 5: Regularization">
+<meta name="description" content="Lab 7: Nonlinear Models">
 
 <script id="pandoc-meta" type="application/json">
-{"newpage_html_class":"page-break-after","output":{"pagedown::html_paged":{"css":["style/my-style-page.css","default-fonts","default-page","default"],"number_sections":true,"self_contained":true}},"title":"Lab 5: Regularization"}
+{"newpage_html_class":"page-break-after","output":{"pagedown::html_paged":{"css":["style/my-style-page.css","default-fonts","default-page","default"],"number_sections":true,"self_contained":true}},"title":"Lab 7: Nonlinear Models"}
 </script>
 
-<title>Lab 5: Regularization</title>
+<title>Lab 7: Nonlinear Models</title>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
@@ -32463,7 +32463,7 @@ break-after: always;
 
 <div class="front-page">
 <div id="header" class="title-page">
-<h1 class="title">Lab 5: Regularization</h1>
+<h1 class="title">Lab 7: Nonlinear Models</h1>
 </div>
 </div>
 
@@ -32471,60 +32471,62 @@ break-after: always;
 </div>
 
 <div class="main">
-<p>We will use the <code>Hitters</code> data set in the <code>ISLR</code> package to predict <code>Salary</code> for baseball players.</p>
+<p>We will continue to use the <code>Wage</code> data set in the <code>ISLR</code> package to predict <code>wage</code> for <span class="math inline">\(3,000\)</span> mid-atlantic male workers.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">str</span>(Hitters)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    322 obs. of  20 variables:
-##  $ AtBat    : int  293 315 479 496 321 594 185 298 323 401 ...
-##  $ Hits     : int  66 81 130 141 87 169 37 73 81 92 ...
-##  $ HmRun    : int  1 7 18 20 10 4 1 0 6 17 ...
-##  $ Runs     : int  30 24 66 65 39 74 23 24 26 49 ...
-##  $ RBI      : int  29 38 72 78 42 51 8 24 32 66 ...
-##  $ Walks    : int  14 39 76 37 30 35 21 7 8 65 ...
-##  $ Years    : int  1 14 3 11 2 11 2 3 2 13 ...
-##  $ CAtBat   : int  293 3449 1624 5628 396 4408 214 509 341 5206 ...
-##  $ CHits    : int  66 835 457 1575 101 1133 42 108 86 1332 ...
-##  $ CHmRun   : int  1 69 63 225 12 19 1 0 6 253 ...
-##  $ CRuns    : int  30 321 224 828 48 501 30 41 32 784 ...
-##  $ CRBI     : int  29 414 266 838 46 336 9 37 34 890 ...
-##  $ CWalks   : int  14 375 263 354 33 194 24 12 8 866 ...
-##  $ League   : Factor w/ 2 levels &quot;A&quot;,&quot;N&quot;: 1 2 1 2 2 1 2 1 2 1 ...
-##  $ Division : Factor w/ 2 levels &quot;E&quot;,&quot;W&quot;: 1 2 2 1 1 2 1 2 2 1 ...
-##  $ PutOuts  : int  446 632 880 200 805 282 76 121 143 0 ...
-##  $ Assists  : int  33 43 82 11 40 421 127 283 290 0 ...
-##  $ Errors   : int  20 10 14 3 4 25 7 9 19 0 ...
-##  $ Salary   : num  NA 475 480 500 91.5 750 70 100 75 1100 ...
-##  $ NewLeague: Factor w/ 2 levels &quot;A&quot;,&quot;N&quot;: 1 2 1 2 2 1 1 1 2 1 ...</code></pre>
-<div id="data-processing" class="section level2" number="1">
-<h2><span class="header-section-number">1</span> Data Processing</h2>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">str</span>(Wage)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    3000 obs. of  11 variables:
+##  $ year      : int  2006 2004 2003 2003 2005 2008 2009 2008 2006 2004 ...
+##  $ age       : int  18 24 45 43 50 54 44 30 41 52 ...
+##  $ maritl    : Factor w/ 5 levels &quot;1. Never Married&quot;,..: 1 1 2 2 4 2 2 1 1 2 ...
+##  $ race      : Factor w/ 4 levels &quot;1. White&quot;,&quot;2. Black&quot;,..: 1 1 1 3 1 1 4 3 2 1 ...
+##  $ education : Factor w/ 5 levels &quot;1. &lt; HS Grad&quot;,..: 1 4 3 4 2 4 3 3 3 2 ...
+##  $ region    : Factor w/ 9 levels &quot;1. New England&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ jobclass  : Factor w/ 2 levels &quot;1. Industrial&quot;,..: 1 2 1 2 2 2 1 2 2 2 ...
+##  $ health    : Factor w/ 2 levels &quot;1. &lt;=Good&quot;,&quot;2. &gt;=Very Good&quot;: 1 2 1 2 1 2 2 1 2 2 ...
+##  $ health_ins: Factor w/ 2 levels &quot;1. Yes&quot;,&quot;2. No&quot;: 2 2 1 1 1 1 1 1 1 1 ...
+##  $ logwage   : num  4.32 4.26 4.88 5.04 4.32 ...
+##  $ wage      : num  75 70.5 131 154.7 75 ...</code></pre>
+<div id="polynomial-regression-and-step-functions" class="section level2" number="1">
+<h2><span class="header-section-number">1</span> Polynomial Regression and Step Functions</h2>
 <ol style="list-style-type: decimal">
-<li>Remove records with missing data. Create a new (complete) version of your data set. (Hint: <code>drop_na</code> in <code>tidyr</code> could be helpful.)</li>
-<li>You may need to create dummy variables for categorical variables in your recipes. <code>step_dummy(all_nominal_predictors())</code> is a good way to do this.</li>
-<li>You may need to standardize all variables in your recipes. <code>step_normalize(all_predictors())</code> is a good way to do this.</li>
+<li><p>Fit a degree-4 polynomial regression model predicting <code>wage</code> based on <code>age</code>. Inspect your model and describe the fit. [<strong>Hint</strong>: you can use the <code>step_poly</code> function to create your polynomials.]</p></li>
+<li><p>Choose your degree of polynomial using a cross validation approach. What degree model would you pick?</p></li>
+<li><p>Fit a step function for <code>age</code> predicting <code>wage</code> with <span class="math inline">\(4\)</span> cut points. You can use the function <code>step_discretize</code> to change your quantitative variable into a categorical one. Let <code>step_discretize</code> automatically choose the cut locations based on your data.</p></li>
 </ol>
 </div>
-<div id="ridge-regression" class="section level2" number="2">
-<h2><span class="header-section-number">2</span> Ridge Regression</h2>
-<p>The <code>linear_reg()</code> specification can perform both ridge regression and the lasso. This is done with the specification of a parameter <code>mixture</code>. If <code>mixture = 0</code> then a ridge regression model is fit and if <code>mixture = 1</code> then the lasso is fit. Here is an example for ridge regression with penalty <span class="math inline">\(= \lambda\)</span>:</p>
-<pre><code>ridge_spec &lt;- linear_reg(mixture = 0, penalty = lambda) |&gt;
-  set_mode(&quot;regression&quot;) |&gt;
-  set_engine(&quot;glmnet&quot;)</code></pre>
+<div id="regression-splines" class="section level2" number="2">
+<h2><span class="header-section-number">2</span> Regression Splines</h2>
+<p>To fit regression splines, we will use <code>step_bs</code> and <code>step_ns</code> in the recipe. The <code>step_bs</code> function generates a matrix of basis functions for regression splines (defaults cubic) based on a vector of knots or a specified degree of freedom. The <code>ns</code> function is the same for natural splines.</p>
+<p>We can use either of these functions with our usual linear model.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>linear_spec <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>()</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="do">## automatically chosen knots</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>spline_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="fu">step_bs</span>(<span class="at">degree =</span> <span class="dv">3</span>, <span class="at">deg_free =</span> <span class="dv">6</span>) <span class="do">## cubic spline with 2 knots &amp; intercept</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="do">## user specified knots</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>spline_rec2 <span class="ot">&lt;-</span> <span class="fu">recipe</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df) <span class="sc">|&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="fu">step_bs</span>(<span class="at">degree =</span> <span class="dv">3</span>, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">knots =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>))) <span class="do">## cubic spline with 2 knots &amp; intercept</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>bs_workflow <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>  <span class="fu">add_model</span>(linear_spec) <span class="sc">|&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>  <span class="fu">add_recipe</span>(spline_rec)</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>bs_fit <span class="ot">&lt;-</span> <span class="fu">fit</span>(bs_workflow, <span class="at">data =</span> df)</span></code></pre></div>
 <ol style="list-style-type: decimal">
-<li>Create a vector of <span class="math inline">\(\lambda\)</span> values from <span class="math inline">\(\lambda = .01\)</span> to <span class="math inline">\(\lambda = 10^10\)</span> of length <span class="math inline">\(100\)</span>.</li>
-<li>Fit a ridge regression model for each <span class="math inline">\(\lambda\)</span> in your grid. Be sure to normalize your predictors.</li>
-<li>Make a line plot of coefficient corresponding to each <span class="math inline">\(\lambda\)</span>. You should have an individual line for each variable with coefficient value on the <span class="math inline">\(y\)</span>-axis and <span class="math inline">\(\lambda\)</span> on the <span class="math inline">\(x\)</span> axis. What happens to your coefficients as <span class="math inline">\(\lambda\)</span> increases?</li>
-<li>Perform <span class="math inline">\(10\)</span>-fold cross validation and get an estimate of the test MSE for each <span class="math inline">\(\lambda\)</span> in your grid. Which <span class="math inline">\(\lambda\)</span> would you choose and why? (Hint: look at the <code>tune</code> package for a fast way to do this.)</li>
+<li><p>Fit <code>wage</code> on <code>age</code> using a cubic regression spline with knots at ages <span class="math inline">\(25, 40, 60\)</span>.</p></li>
+<li><p>Fit <code>wage</code> on <code>age</code> using a cubic regression spline with 6 degrees of freedom and knots chosen uniformly on the quantiles of the data (this is how <code>step_bs</code> does it by default).</p></li>
+<li><p>Fit <code>wage</code> on <code>age</code> using a natural cubic regression spline with 6 degrees of freedom and knots chosen uniformly on the quantiles of the data.</p></li>
+<li><p>Create a scatter plot of <code>wage</code> vs <code>age</code> with all three of your fitted splines overlayed as well as your chosen polynomial model (either by anova or CV). Comment on the shapes. [<strong>Hint:</strong> <code>predict</code> over a grid of <code>age</code> values might be helpful.]</p></li>
 </ol>
 </div>
-<div id="lasso" class="section level2" number="3">
-<h2><span class="header-section-number">3</span> Lasso</h2>
+<div id="gams" class="section level2" number="3">
+<h2><span class="header-section-number">3</span> GAMs</h2>
 <ol style="list-style-type: decimal">
-<li>Fit the lasso model for each <span class="math inline">\(\lambda\)</span> in your grid.</li>
-<li>Make a line plot of coefficient corresponding to each <span class="math inline">\(\lambda\)</span>. You should have an individual line for each variable with coefficient value on the <span class="math inline">\(y\)</span>-axis and <span class="math inline">\(\lambda\)</span> on the <span class="math inline">\(x\)</span> axis. (Hint: <code>coef</code> may be a useful function). What happens to your coefficients as <span class="math inline">\(\lambda\)</span> increases?</li>
-<li>Perform <span class="math inline">\(10\)</span>-fold cross validation and get an estimate of the test MSE for each <span class="math inline">\(\lambda\)</span> in your grid. Which <span class="math inline">\(\lambda\)</span> would you choose and why?</li>
+<li>Fit a GAM using natural spline functions of <code>year</code> and <code>age</code>, treating <code>education</code> as a categorical predictor.</li>
 </ol>
 </div>
 </div>

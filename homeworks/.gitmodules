@@ -19,3 +19,15 @@
 [submodule "hw-7"]
 	path = hw-7
 	url = git@github.com:dsci445-csu/hw-7.git
+[submodule "hw-11"]
+	path = hw-11
+	url = git@github.com:dsci445-csu/hw-11.git
+[submodule "hw-10"]
+	path = hw-10
+	url = git@github.com:dsci445-csu/hw-10.git
+[submodule "hw-9"]
+	path = hw-9
+	url = git@github.com:dsci445-csu/hw-9.git
+[submodule "hw-8"]
+	path = hw-8
+	url = git@github.com:dsci445-csu/hw-8.git

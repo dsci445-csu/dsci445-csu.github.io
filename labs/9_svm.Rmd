@@ -9,6 +9,7 @@ output:
 
 ```{r, message=FALSE}
 library(tidyverse) ## data manipulation
+library(tidymodels) ## models
 library(knitr) ## tables
 
 ## reproducible
@@ -47,23 +48,34 @@ df_large <- data.frame(x_large, y = as.factor(y_large))
 
 ## Support Vector Classifier
 
-We will use the `e1071` library to fit the support vector classifier and the SVM. The `svm` function will fit both, with the `kernel` argument taking values in `"linear", "polynomial", "radial"`.
+We will use the `svm_poly` and `svm_rbf` functions to fit the support vector classifier and the SVM. 
 
-The `cost` argument allows us to specify the cost of violation to the margin. When the `cost` argument is small, margins will be wide.
+Here is an example model specification for a support vector classifier (linear decision boundary):
 
-```{r}
-library(e1071) ## svm library
+```{r, eval = FALSE}
+svm_linear_spec <- svm_poly(degree = 1) %>%
+  set_mode("classification") %>%
+  set_engine("kernlab", scaled = FALSE)
 ```
 
-1. Use the `svm` function to fit a support vector classifier on the small data with $C = 10$ (use `scale = FALSE` to disallow rescaling of your data.
+The `cost` argument allows us to specify the cost of violation to the margin. When the `cost` argument is small, margins will be wide. An example of fitting an SVM with a specified cost is:
 
-2. Inspect your model using `summary()`. How many support vectors were used to fit your classifier?
+```{r, eval = FALSE}
+svm_linear_fit <- svm_linear_spec %>% 
+  set_args(cost = 10) %>%
+  fit(y ~ ., data = df)
+```
 
-3. Predict (`predict()`) a grid of $\boldsymbol X$ values between the range of $X_1$ and $X_2$. Plot these predictions using `geom_tile()` to visualize the decision boundary and add a scatteplot of training data on top, colored by training label. Describe what you see.
 
-4. Alter your plot from 2 to change the shape of the support vectors.
+1. Fit a support vector classifier on the small data with $C = 10$ (use `scaled = FALSE` to indicated your data should not be scaled.)
 
-5. Use the `tune()` function to perform CV on the cost parameter. Which value of $C$ would you choose?
+2. How many support vectors were used to fit your classifier?
+
+3. Predict a grid of $\boldsymbol X$ values between the range of $X_1$ and $X_2$. Plot these predictions using `geom_tile()` to visualize the decision boundary and add a scatteplot of training data on top, colored by training label. Describe what you see.
+
+4. Alter your plot from 2 to change the shape of the support vectors. [*Hint:* You can extract the fit engine from your object using `extract_fit_engine` and then access the index of the support vectors from your stored object as `object@alphaindex`]
+
+5. Perform CV on the cost parameter. Which value of $C$ would you choose?
 
 6. Repeat 3. and 4. using your chosen $C$ value. Describe what you see.
 
@@ -71,8 +83,8 @@ library(e1071) ## svm library
 
 1. Split the large data frame into 50% training and 50% test.
 
-2. Fit a linear SVM, radial SVM with $\gamma = 1$, and polynomial SVM with $d = 3$ using `tune()` to choose the appropriate cost for each model.
+2. Fit a linear SVM, radial SVM with $\gamma = 1$, and polynomial SVM with $d = 3$ using CV to choose the appropriate cost for each model.
 
-3. Predict (`predict()`) a grid of $\boldsymbol X$ values between the range of $X_1$ and $X_2$. Plot these predictions using `geom_tile()` to visualize the decision boundary and add a scatteplot of training data on top, colored by training label. Describe what you see.
+3. Predict a grid of $\boldsymbol X$ values between the range of $X_1$ and $X_2$. Plot these predictions using `geom_tile()` to visualize the decision boundary and add a scatteplot of training data on top, colored by training label. Describe what you see.
 
 4. Predict your test data with your three models. Which model would you choose?
