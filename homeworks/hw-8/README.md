@@ -1,0 +1,78 @@
+# hw-8
+
+Homework 8 in DSCI445: Statistical Machine Learning @ CSU
+
+## Assignment
+
+Be sure to `set.seed(445)`.
+
+# Non-linear Models
+
+1. We know that a cubic regression spline with one knot at $\xi$ can be obtained using a basis of the form $x, x^2, x^3, (x - \xi)^3_+$ where $(x - \xi)^3_+ = (x - \xi)^3$ if $x > \xi$ and $0$ otherwise. We will now show that a function of the form
+$$
+f(x) = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4(x - \xi)^3_+
+$$
+is a cubic regression spline, regardless of the values of $\beta_0, \beta_1, \beta_2, \beta_3, \beta_4$.
+
+    a) Find a cubic polynomial
+        $$
+        f_1(x) = a_1 + b_1 x + c_1 x^2 + d_1 x^3
+        $$
+        such that $f(x) = f_1(x)$ for all $x \le \xi$. Express $a_1, b_1, c_1, d_1$ in terms of $\beta_0, \beta_1, \beta_2, \beta_3, \beta_4$.
+        
+    b) Find a cubic polynomial
+        $$
+        f_2(x) = a_2 + b_2 x + c_2 x^2 + d_2 x^3
+        $$
+        such that $f(x) = f_2(x)$ for all $x > \xi$. Express $a_2, b_2, c_2, d_2$ in terms of $\beta_0, \beta_1, \beta_2, \beta_3, \beta_4$. We have now established that $f(x)$ is a piecewise polynomial.
+        
+    c) Show that $f_1(\xi) = f_2(\xi)$. That is, $f(x)$ is continuous at $\xi$.
+    
+    d) Show that $f'_1(\xi) = f'_2(\xi)$. That is, $f'(x)$ is continuous at $\xi$.
+    
+    e) Show that $f''_1(\xi) = f''_2(\xi)$. That is, $f''(x)$ is continuous at $\xi$.
+    
+    **Hint:** Parts (d) and (e) require knowledge of single-variable calculus. As a reminder, given a cubic polynomial
+        $$
+        f_1(x) = a_1 + b_1 x + c_1 x^2 + d_1 x^3
+        $$
+        the first derivative takes the form
+        $$
+        f'_1(x) = b_1 + 2c_1 x + 3d_1 x^2
+        $$
+        and the second derivative takes the form
+        $$
+        f''_1(x) = 2c_1 + 6d_1 x
+        $$
+    
+2. This question relates to the `College` data set. 
+    
+    a) Split the data into a training (60%) and test data set (40%). Using out-of-state tuition as the response and the other variables as the predictors, perform forward stepwise selection on the training set in order to identify a satisfactory model that uses a subset of the predictors.
+        
+    b) Fit a GAM on the training data, using out-of-state tuition as the response and the features selected in part a. as predictors with natural cubic splines and df = 6 for each continous variable. Plot the results and explain your findings.
+        
+    c) Evaluate the model obtained on the test set and explain the results obtained.
+        
+    d) For which variables is there evidence of a non-linear relationship with the response?
+    
+
+Turn in in a pdf of your homework to canvas using the provided Rmd file as a template. Your Rmd file on the server will also be used in grading, so be sure they are identical.
+
+**Be sure to share your server project with the instructor and grader. You only need to do this once per semester.**
+
+1. Open your `homeworks` project on liberator.stat.colostate.edu
+2. Click the drop down on the project (top right side) > Share Project...
+    
+    <div class="figure">
+    <img src="share_project.png" alt="plot of chunk unnamed-chunk-1" width="25%" />
+    <p class="caption">plot of chunk unnamed-chunk-1</p>
+    </div>
+  
+3. Click the drop down and add "dsci445instructors" to your project.
+
+    <div class="figure">
+    <img src="share_dropdown.png" alt="plot of chunk unnamed-chunk-2" width="25%" />
+    <p class="caption">plot of chunk unnamed-chunk-2</p>
+    </div>
+
+This is how you **receive points** for reproducibility on your homework!

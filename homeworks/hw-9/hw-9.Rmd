@@ -1,0 +1,69 @@
+---
+title: "DSCI445 - Homework 9"
+author: "Your Name"
+output: pdf_document
+---
+
+Be sure to `set.seed(445)` at the beginning of your homework. 
+
+```{r}
+#reproducibility
+set.seed(445)
+```
+
+1. This problem involves the $OJ$ data set in the $ISLR$ package.
+
+    a. Create a training set containing a random sample of $800$ observations and a test set containing the remaining observations.
+    
+    b. Fit a tree to the training data with `Purchase` as the response and the other variables as predictors. Describe the results obtained. What is the training error rate? How many terminal nodes does the tree have?
+    
+    c. Create a plot of the tree and interpret.
+    
+    d. Predict the response on the test data and produce a confusion matrix comparing the test labels to the predicted labels. What is the test error rate?
+    
+    e. Apply the cross validation to the training set in order to determine the optimal tree size.
+    
+    f. Produce a plot with complexity on the x-axis and CV error rate (or CV accuracy) on the y-axis. Which tree size corresponds to the lowest CV classification error rate?
+    
+    g. Produce a pruned tree corresponding to the optimal tree size. If CV doesn't lead to the selection of a pruned tree, then create a pruned tree with five terminal nodes.
+    
+    h. Compare the training error rates between the pruned and unpruned tree.
+    
+    i. Compare the test error rates between the pruned and unpruned tree.
+
+2. We will use boosting, bagging, and random forests to predict `Salary` in the `Hitters` data set.
+
+    a. Remove the observations for which the salary information is unknown and then log-transform the salaries.
+    
+    b. Create a training set consisting of the first $200$ observations and a test set consisting of the remaining observations.
+    
+    c. Perform boosting on the training set with $1,000$ trees for a range of values of the shrinkage parameter $\lambda$. Produce a plot with different shrinkage values on the $x$-axis and the corresponing training MSE on the $y$-axis.
+    
+    d. Produce a plot with different shrinkage values on the $x$-axis and the corresponing test MSE on the $y$-axis.
+    
+    e. Compare the test MSE of boosting to the test MSE that results from two other regression approaches (Something from Ch. 3, 6, or 7)
+    
+    f. Which variables appear to be the most important predictors in the boosted model?
+    
+    g. Now apply bagging to the training data set. What is the test MSE for this approach?
+    
+    h. Now apply random forest to the training data set. What is the test MSE for this approach?
+    
+Turn in in a pdf of your homework to canvas using the provided Rmd file as a template. Your Rmd file on the server will also be used in grading, so be sure they are identical.
+
+**Be sure to share your server project with the instructor and grader. You only need to do this once per semester.**
+
+1. Open your `homeworks` project on liberator.stat.colostate.edu
+2. Click the drop down on the project (top right side) > Share Project...
+    
+    ```{r, echo=FALSE, out.width="25%"}
+    knitr::include_graphics("share_project.png")
+    ```
+  
+3. Click the drop down and add "dsci445instructors" to your project.
+
+    ```{r, echo=FALSE, out.width="25%"}
+    knitr::include_graphics("share_dropdown.png")
+    ```
+
+This is how you **receive points** for reproducibility on your homework!
