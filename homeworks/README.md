@@ -8,8 +8,8 @@ Complete all homework in rstudio.cloud in the appropriate repo and turn in repor
 
 ## Assignments
 
-1. [Homework 1](https://github.com/dsci445-csu/hw-1/) - Due Sep. 1
-1. [Homework 2](https://github.com/dsci445-csu/hw-2/) - Due Sep. 8
+1. [Homework 1](https://github.com/dsci445-csu/hw-1/) - Due Sep. 3
+1. [Homework 2](https://github.com/dsci445-csu/hw-2/) - Due Sep. 10
 1. [Homework 3](https://github.com/dsci445-csu/hw-3/) - Due Sep. 15
 1. [Homework 4](https://github.com/dsci445-csu/hw-4/) - Due Sep. 22
 1. [Homework 5](https://github.com/dsci445-csu/hw-5/) - Due Oct. 6
